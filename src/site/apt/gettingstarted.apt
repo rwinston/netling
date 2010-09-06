@@ -1,0 +1,18 @@
+Getting Started
+ 
+* Using Maven
+
+    If you are using Maven, add a reference to netling to your pom.xml:
+
+-------------------------------------
+    <dependency>
+        <groupId>org.netling</groupId>
+        <artifactId>netling</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+--------------------------------------
+ 
+ 
+
+
+        

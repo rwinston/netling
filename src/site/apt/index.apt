@@ -1,0 +1,15 @@
+ Netling is a Java-based network library that implements the following protocols:
+ 
+  * FTP
+
+  * FTPS
+
+  * SFTP
+
+  * SCP
+
+  * SSH
+
+
+
+

@@ -28,7 +28,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.netling.sshj.common.Base64;
+import org.netling.util.Base64;
 
 
 /**
@@ -78,8 +78,7 @@ public class FTPHTTPClient extends FTPClient {
     }
 
     @Override
-    public void connect(String host, int port) throws SocketException,
-    IOException {
+    public void connect(String host, int port) throws SocketException, IOException {
         this.host = host;
         this.port = port;
 
@@ -96,8 +95,7 @@ public class FTPHTTPClient extends FTPClient {
         }
     }
 
-    private void tunnelHandshake(String host, int port, InputStream input, OutputStream output) throws IOException,
-    UnsupportedEncodingException {
+    private void tunnelHandshake(String host, int port, InputStream input, OutputStream output) throws IOException {
         final String connectString = "CONNECT "  + host + ":" + port  + " HTTP/1.1";
 
         output.write(connectString.getBytes(getControlEncoding()));

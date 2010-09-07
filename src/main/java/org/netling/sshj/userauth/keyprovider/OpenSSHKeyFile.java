@@ -15,7 +15,7 @@
  */
 package org.netling.sshj.userauth.keyprovider;
 
-import org.netling.sshj.common.Base64;
+import org.netling.util.Base64;
 import org.netling.sshj.common.Buffer;
 import org.netling.sshj.common.KeyType;
 

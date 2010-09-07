@@ -25,11 +25,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.junit.Test;
+
 public class FTPClientConfigTest {
 
 	/*
 	 * Class under test for void FTPClientConfig(String)
 	 */
+	@Test
 	public void testFTPClientConfigString() {
 		FTPClientConfig config = new FTPClientConfig(FTPClientConfig.SYST_VMS);
 		assertEquals(FTPClientConfig.SYST_VMS, config.getServerSystemKey());
@@ -50,6 +53,7 @@ public class FTPClientConfigTest {
 	/*
 	 * Class under test for void FTPClientConfig(String, String, String, String, String, String)
 	 */
+	@Test
 	public void testFTPClientConfigStringStringStringStringStringString() {
 		FTPClientConfig conf = new FTPClientConfig(A,B,C,D,E,F);
 
@@ -67,12 +71,7 @@ public class FTPClientConfigTest {
 	String tooShort = "jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov";
 	String fakeLang = "abc|def|ghi|jkl|mno|pqr|stu|vwx|yza|bcd|efg|hij";
 
-	public void testSetShortMonthNames() {
-	}
-
-	public void testGetServerLanguageCode() {
-	}
-
+	@Test
 	public void testLookupDateFormatSymbols() {
 		DateFormatSymbols dfs1 = null;
 		DateFormatSymbols dfs2 = null;
@@ -131,6 +130,7 @@ public class FTPClientConfigTest {
 
 	}
 
+	@Test
 	public void testGetDateFormatSymbols() {
 
 		try {

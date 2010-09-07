@@ -15,7 +15,7 @@
  */
 package org.netling.sshj.transport.verification;
 
-import org.netling.sshj.common.Base64;
+import org.netling.util.Base64;
 import org.netling.sshj.common.Buffer;
 import org.netling.sshj.common.IOUtils;
 import org.netling.sshj.common.KeyType;

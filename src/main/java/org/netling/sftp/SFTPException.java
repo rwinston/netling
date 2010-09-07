@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.netling.ssh.sftp;
+package org.netling.sftp;
 
 import org.netling.concurrent.ExceptionChainer;
 import org.netling.ssh.common.DisconnectReason;
 import org.netling.ssh.common.SSHException;
-import org.netling.ssh.sftp.Response.StatusCode;
+import org.netling.sftp.Response.StatusCode;
 
 public class SFTPException
         extends SSHException {

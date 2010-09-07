@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.netling.ssh.sftp;
+package org.netling.sftp;
 
+import org.netling.ssh.common.SSHException;
+import org.netling.ssh.connection.channel.direct.SessionFactory;
 import org.netling.xfer.FilePermission;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,11 @@ public class SFTPClient
     private final SFTPEngine engine;
     private final SFTPFileTransfer xfer;
     private final PathHelper pathHelper;
+
+    public SFTPClient(SessionFactory sessionFactory)
+            throws IOException {
+        this(new SFTPEngine(sessionFactory).init());
+    }
 
     public SFTPClient(SFTPEngine engine) {
         this.engine = engine;

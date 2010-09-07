@@ -15,6 +15,7 @@
  */
 package examples;
 
+import org.netling.scp.SCPFileTransfer;
 import org.netling.ssh.SSHClient;
 
 import java.io.IOException;
@@ -32,7 +33,8 @@ public class SCPDownload {
             ssh.authPublickey(System.getProperty("user.name"));
             final String src = "test_file";
             final String target = "/tmp/";
-            ssh.newSCPFileTransfer().download(src, target);
+            final SCPFileTransfer xfer = new SCPFileTransfer(ssh);
+            xfer.download(src, target);
         } finally {
             ssh.disconnect();
         }

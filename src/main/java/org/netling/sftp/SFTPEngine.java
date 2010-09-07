@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.netling.ssh.sftp;
+package org.netling.sftp;
 
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.connection.channel.direct.Session.Subsystem;

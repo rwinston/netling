@@ -16,7 +16,7 @@
 package examples;
 
 import org.netling.ssh.SSHClient;
-import org.netling.ssh.sftp.SFTPClient;
+import org.netling.sftp.SFTPClient;
 
 import java.io.IOException;
 
@@ -32,12 +32,14 @@ public class SFTPDownload {
             ssh.authPublickey(System.getProperty("user.name"));
             final String src = "test_file";
             final String target = "/tmp/";
-            final SFTPClient sftp = ssh.newSFTPClient();
+
+            final SFTPClient sftp = new SFTPClient(ssh);
             try {
                 sftp.get(src, target);
             } finally {
                 sftp.close();
             }
+
         } finally {
             ssh.disconnect();
         }

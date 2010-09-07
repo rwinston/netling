@@ -15,6 +15,7 @@
  */
 package examples;
 
+import org.netling.scp.SCPFileTransfer;
 import org.netling.ssh.SSHClient;
 
 import java.io.File;
@@ -37,7 +38,8 @@ public class SCPUpload {
 
             final String src = System.getProperty("user.home") + File.separator + "test_file";
             final String target = "/tmp/";
-            ssh.newSCPFileTransfer().upload(src, target);
+            final SCPFileTransfer xfer = new SCPFileTransfer(ssh);
+            xfer.upload(src, target);
         } finally {
             ssh.disconnect();
         }

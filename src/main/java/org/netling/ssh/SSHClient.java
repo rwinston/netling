@@ -42,9 +42,6 @@ import org.netling.ssh.connection.channel.forwarded.RemotePortForwarder;
 import org.netling.ssh.connection.channel.forwarded.RemotePortForwarder.ForwardedTCPIPChannel;
 import org.netling.ssh.connection.channel.forwarded.X11Forwarder;
 import org.netling.ssh.connection.channel.forwarded.X11Forwarder.X11Channel;
-import org.netling.ssh.sftp.SFTPClient;
-import org.netling.ssh.sftp.SFTPEngine;
-import org.netling.ssh.sftp.StatefulSFTPClient;
 import org.netling.ssh.transport.Transport;
 import org.netling.ssh.transport.TransportException;
 import org.netling.ssh.transport.TransportImpl;
@@ -68,7 +65,6 @@ import org.netling.ssh.userauth.method.PasswordResponseProvider;
 import org.netling.ssh.userauth.password.PasswordFinder;
 import org.netling.ssh.userauth.password.PasswordUtils;
 import org.netling.ssh.userauth.password.Resource;
-import org.netling.scp.SCPFileTransfer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,9 +82,7 @@ import org.slf4j.LoggerFactory;
  * remote command, starting a subsystem, etc. If you wish to request X11 forwarding for some session, first {@link
  * #registerX11Forwarder(ConnectListener) register} a {@link ConnectListener} for {@code x11} channels.
  * <p/>
- * {@link #newLocalPortForwarder Local} and {@link #getRemotePortForwarder() remote} port forwarding is possible. There
- * are also utility method for easily creating {@link #newSCPFileTransfer SCP} and {@link #newSFTPClient() SFTP}
- * implementations.
+ * {@link #newLocalPortForwarder Local} and {@link #getRemotePortForwarder() remote} port forwarding is possible.
  * <p/>
  * <em>A simple example:</em>
  * <p/>
@@ -579,24 +573,6 @@ public class SSHClient
         final X11Forwarder x11f = new X11Forwarder(conn, listener);
         conn.attach(x11f);
         return x11f;
-    }
-
-    /** @return Instantiated {@link SCPFileTransfer} implementation. */
-    public SCPFileTransfer newSCPFileTransfer() {
-        assert isConnected() && isAuthenticated();
-        return new SCPFileTransfer(this);
-    }
-
-    /**
-     * @return Instantiated {@link SFTPClient} implementation.
-     *
-     * @throws IOException if there is an error starting the {@code sftp} subsystem
-     * @see StatefulSFTPClient
-     */
-    public SFTPClient newSFTPClient()
-            throws IOException {
-        assert isConnected() && isAuthenticated();
-        return new SFTPClient(new SFTPEngine(this).init());
     }
 
     /**

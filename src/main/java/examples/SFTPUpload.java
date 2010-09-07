@@ -16,7 +16,7 @@
 package examples;
 
 import org.netling.ssh.SSHClient;
-import org.netling.ssh.sftp.SFTPClient;
+import org.netling.sftp.SFTPClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class SFTPUpload {
             ssh.authPublickey(System.getProperty("user.name"));
             final String src = System.getProperty("user.home") + File.separator + "test_file";
             final String target = "/tmp/";
-            final SFTPClient sftp = ssh.newSFTPClient();
+            final SFTPClient sftp = new SFTPClient(ssh);
             try {
                 sftp.put(src, target);
             } finally {

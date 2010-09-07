@@ -13,10 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.netling.ssh.sftp;
+package org.netling.sftp;
 
-public interface RemoteResourceFilter {
+import java.io.IOException;
 
-    boolean accept(RemoteResourceInfo resource);
+public interface Requester {
+
+    Request newRequest(PacketType type);
+
+    Response doRequest(Request req)
+            throws IOException;
 
 }

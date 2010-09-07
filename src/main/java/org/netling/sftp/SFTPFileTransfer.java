@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.netling.ssh.sftp;
+package org.netling.sftp;
 
 import org.netling.io.StreamCopier;
-import org.netling.ssh.sftp.Response.StatusCode;
+import org.netling.sftp.Response.StatusCode;
 import org.netling.xfer.AbstractFileTransfer;
 import org.netling.xfer.FileTransfer;
 import org.netling.xfer.FileTransferUtil;

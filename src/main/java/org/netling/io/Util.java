@@ -34,7 +34,6 @@ import java.io.Writer;
  * <p>
  * @see CopyStreamException
  * @see CopyStreamListener
- * @see CopyStreamAdapter
  * @author Daniel F. Savarese
  ***/
 
@@ -59,9 +58,7 @@ public final class Util
      * copy buffer of a given size and notifies the provided
      * CopyStreamListener of the progress of the copy operation by calling
      * its bytesTransferred(long, int) method after each write to the
-     * destination.  If you wish to notify more than one listener you should
-     * use a CopyStreamAdapter as the listener and register the additional
-     * listeners with the CopyStreamAdapter.
+     * destination.
      * <p>
      * The contents of the InputStream are
      * read until the end of the stream is reached, but neither the
@@ -146,9 +143,7 @@ public final class Util
      * copy buffer of a given size and notifies the provided
      * CopyStreamListener of the progress of the copy operation by calling
      * its bytesTransferred(long, int) method after each write to the
-     * destination.  If you wish to notify more than one listener you should
-     * use a CopyStreamAdapter as the listener and register the additional
-     * listeners with the CopyStreamAdapter.
+     * destination.
      * <p>
      * The contents of the InputStream are
      * read until the end of the stream is reached, but neither the
@@ -226,9 +221,7 @@ public final class Util
      * copy buffer of a given size and notifies the provided
      * CopyStreamListener of the progress of the copy operation by calling
      * its bytesTransferred(long, int) method after each write to the
-     * destination.  If you wish to notify more than one listener you should
-     * use a CopyStreamAdapter as the listener and register the additional
-     * listeners with the CopyStreamAdapter.
+     * destination.
      * <p>
      * The contents of the Reader are
      * read until its end is reached, but neither the source nor the

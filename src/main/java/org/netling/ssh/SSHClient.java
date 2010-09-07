@@ -68,7 +68,7 @@ import org.netling.ssh.userauth.method.PasswordResponseProvider;
 import org.netling.ssh.userauth.password.PasswordFinder;
 import org.netling.ssh.userauth.password.PasswordUtils;
 import org.netling.ssh.userauth.password.Resource;
-import org.netling.ssh.xfer.scp.SCPFileTransfer;
+import org.netling.xfer.scp.SCPFileTransfer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

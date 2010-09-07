@@ -1,6 +1,6 @@
-package org.netling.ssh.xfer;
+package org.netling.xfer;
 
-import org.netling.ssh.common.StreamCopier;
+import org.netling.io.StreamCopier;
 
 public interface TransferListener
         extends StreamCopier.Listener {

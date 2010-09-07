@@ -15,9 +15,9 @@
  */
 package org.netling.ssh.connection.channel.direct;
 
+import org.netling.io.StreamCopier;
 import org.netling.ssh.common.SSHPacket;
-import org.netling.ssh.common.StreamCopier;
-import org.netling.ssh.common.StreamCopier.ErrorCallback;
+import org.netling.io.StreamCopier.ErrorCallback;
 import org.netling.ssh.connection.Connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

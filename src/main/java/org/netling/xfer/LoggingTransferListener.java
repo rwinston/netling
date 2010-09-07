@@ -1,4 +1,4 @@
-package org.netling.ssh.xfer;
+package org.netling.xfer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

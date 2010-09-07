@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -34,14 +33,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.netling.MalformedServerReplyException;
-import org.netling.ftp.FTP.FileStructure;
-import org.netling.ftp.FTP.FileType;
 import org.netling.ftp.parser.DefaultFTPFileEntryParserFactory;
 import org.netling.ftp.parser.FTPFileEntryParserFactory;
 import org.netling.ftp.parser.ParserInitializationException;
-import org.netling.io.CopyStreamEvent;
 import org.netling.io.CopyStreamException;
 import org.netling.io.FromNetASCIIInputStream;
+import org.netling.io.StreamCopier;
 import org.netling.io.ToNetASCIIOutputStream;
 import org.netling.io.Util;
 import org.slf4j.Logger;
@@ -354,7 +351,7 @@ implements Configurable {
         systemName         = null;
         entryParser        = null;
         entryParserKey    = "";
-        bufferSize         = Util.DEFAULT_COPY_BUFFER_SIZE;
+        bufferSize         = 1024;
     }
 
     private String parsePathname(String reply)
@@ -445,9 +442,7 @@ implements Configurable {
             output = new ToNetASCIIOutputStream(output);
         // Treat everything else as binary for now
         try {
-            Util.copyStream(local, output, getBufferSize(),
-                    CopyStreamEvent.UNKNOWN_STREAM_SIZE, null,
-                    false);
+            StreamCopier.copy(local, output, getBufferSize(), false);
         }
         catch (IOException e)
         {
@@ -1160,7 +1155,7 @@ implements Configurable {
      * <p>
      * @param fileType The <code> {@link FileType} </code> constant indicating the
      *                 type of file.
-     * @param formatOrByteSize  The format of the file.
+     * @param format  The format of the file.
      * <p>
      * @return True if successfully completed, false if not.
      * @exception FTPConnectionClosedException
@@ -1193,7 +1188,7 @@ implements Configurable {
      * ACTIVE_LOCAL_DATA_CONNECTION_MODE.
      * <p>
      * @param fileType Should be <code> {@link FileType#LOCAL} </code>.
-     * @param formatOrByteSize  The byte size.
+     * @param sizeBytes  The byte size.
      * <p>
      * @return True if successfully completed, false if not.
      * @exception FTPConnectionClosedException
@@ -1488,9 +1483,7 @@ implements Configurable {
         // Treat everything else as binary for now
         try
         {
-            Util.copyStream(input, local, getBufferSize(),
-                    CopyStreamEvent.UNKNOWN_STREAM_SIZE, null,
-                    false);
+            StreamCopier.copy(input, local, getBufferSize(), false);
         }
         catch (IOException e)
         {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.netling.ssh.xfer;
+package org.netling.xfer;
 
 import java.util.HashSet;
 import java.util.LinkedList;

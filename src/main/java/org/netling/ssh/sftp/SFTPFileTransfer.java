@@ -15,12 +15,12 @@
  */
 package org.netling.ssh.sftp;
 
-import org.netling.ssh.common.StreamCopier;
+import org.netling.io.StreamCopier;
 import org.netling.ssh.sftp.Response.StatusCode;
-import org.netling.ssh.xfer.AbstractFileTransfer;
-import org.netling.ssh.xfer.FileTransfer;
-import org.netling.ssh.xfer.FileTransferUtil;
-import org.netling.ssh.xfer.TransferListener;
+import org.netling.xfer.AbstractFileTransfer;
+import org.netling.xfer.FileTransfer;
+import org.netling.xfer.FileTransferUtil;
+import org.netling.xfer.TransferListener;
 
 import java.io.File;
 import java.io.FileFilter;

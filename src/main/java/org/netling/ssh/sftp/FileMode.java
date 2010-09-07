@@ -15,7 +15,7 @@
  */
 package org.netling.ssh.sftp;
 
-import org.netling.ssh.xfer.FilePermission;
+import org.netling.xfer.FilePermission;
 
 import java.util.Collections;
 import java.util.Set;

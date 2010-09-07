@@ -15,7 +15,7 @@
  */
 package org.netling.ssh.sftp;
 
-import org.netling.ssh.xfer.FilePermission;
+import org.netling.xfer.FilePermission;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

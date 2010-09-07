@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.netling.ssh.common;
+package org.netling.io;
 
-import org.netling.io.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +29,13 @@ public class StreamCopier
     private static final Logger LOG = LoggerFactory.getLogger(StreamCopier.class);
 
     public interface ErrorCallback {
+
         void onError(IOException ioe);
     }
 
     public static ErrorCallback closeOnErrorCallback(final Closeable... toClose) {
         return new ErrorCallback() {
+
             @Override
             public void onError(IOException ioe) {
                 Util.closeQuietly(toClose);
@@ -43,11 +44,12 @@ public class StreamCopier
     }
 
     public interface Listener {
+
         void reportProgress(long transferred);
     }
 
     public static long copy(InputStream in, OutputStream out, int bufSize, boolean keepFlushing, Listener listener)
-            throws IOException {
+            throws CopyStreamException {
         long count = 0;
 
         final boolean reportProgress = listener != null;
@@ -55,16 +57,22 @@ public class StreamCopier
 
         final byte[] buf = new byte[bufSize];
         int read;
-        while ((read = in.read(buf)) != -1) {
-            out.write(buf, 0, read);
-            count += read;
-            if (keepFlushing)
+        try {
+            while ((read = in.read(buf)) != -1) {
+                if (read == 0)
+                    continue;
+                out.write(buf, 0, read);
+                count += read;
+                if (keepFlushing)
+                    out.flush();
+                if (reportProgress)
+                    listener.reportProgress(count);
+            }
+            if (!keepFlushing)
                 out.flush();
-            if (reportProgress)
-                listener.reportProgress(count);
+        } catch (IOException ioe) {
+            throw new CopyStreamException("IOException caught while copying", count, ioe);
         }
-        if (!keepFlushing)
-            out.flush();
 
         final double sizeKiB = count / 1024.0;
         final double timeSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
@@ -96,6 +104,7 @@ public class StreamCopier
     private boolean keepFlushing = true;
 
     private ErrorCallback errCB = new ErrorCallback() {
+
         @Override
         public void onError(IOException ioe) {
         }

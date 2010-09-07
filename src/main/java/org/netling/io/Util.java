@@ -17,6 +17,10 @@
 
 package org.netling.io;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -36,6 +40,9 @@ import java.io.Writer;
 
 public final class Util
 {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Util.class);
+
     /***
      * The default buffer size used by {@link #copyStream  copyStream }
      * and {@link #copyReader  copyReader }. It's value is 1024.
@@ -331,4 +338,13 @@ public final class Util
         return copyReader(source, dest, DEFAULT_COPY_BUFFER_SIZE);
     }
 
+    public static void closeQuietly(Closeable... closeables) {
+        for (Closeable c : closeables)
+            try {
+                if (c != null)
+                    c.close();
+            } catch (IOException logged) {
+                LOG.warn("Error closing {} - {}", c, logged);
+            }
+    }
 }

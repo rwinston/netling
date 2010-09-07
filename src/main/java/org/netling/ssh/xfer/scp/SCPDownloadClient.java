@@ -15,7 +15,7 @@
  */
 package org.netling.ssh.xfer.scp;
 
-import org.netling.ssh.common.IOUtils;
+import org.netling.io.Util;
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.connection.channel.direct.SessionFactory;
 import org.netling.ssh.xfer.FileTransferUtil;
@@ -170,7 +170,7 @@ public final class SCPDownloadClient
             try {
                 transfer(scp.getInputStream(), fos, scp.getLocalMaxPacketSize(), length);
             } finally {
-                IOUtils.closeQuietly(fos);
+                Util.closeQuietly(fos);
             }
             check("Remote agrees transfer done");
             setAttributes(f, parsePermissions(cMsgParts[0]), tMsg);

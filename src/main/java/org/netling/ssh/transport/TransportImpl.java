@@ -37,12 +37,12 @@ package org.netling.ssh.transport;
 
 import org.netling.concurrent.Event;
 import org.netling.concurrent.FutureUtils;
+import org.netling.io.Util;
 import org.netling.ssh.AbstractService;
 import org.netling.ssh.Config;
 import org.netling.ssh.Service;
 import org.netling.ssh.common.Buffer;
 import org.netling.ssh.common.DisconnectReason;
-import org.netling.ssh.common.IOUtils;
 import org.netling.ssh.common.Message;
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.common.SSHPacket;
@@ -527,8 +527,8 @@ public final class TransportImpl
     private void finishOff() {
         reader.interrupt();
         heartbeater.interrupt();
-        IOUtils.closeQuietly(connInfo.in);
-        IOUtils.closeQuietly(connInfo.out);
+        Util.closeQuietly(connInfo.in);
+        Util.closeQuietly(connInfo.out);
     }
 
     void die(Exception ex) {

@@ -15,7 +15,7 @@
  */
 package org.netling.ssh.xfer.scp;
 
-import org.netling.ssh.common.IOUtils;
+import org.netling.io.Util;
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.connection.channel.direct.Session.Command;
 import org.netling.ssh.connection.channel.direct.SessionFactory;
@@ -138,7 +138,7 @@ abstract class SCPEngine {
     void exit() {
         if (scp != null) {
 
-            IOUtils.closeQuietly(scp);
+            Util.closeQuietly(scp);
 
             if (scp.getExitStatus() != null) {
                 exitStatus = scp.getExitStatus();

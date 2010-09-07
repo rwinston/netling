@@ -16,7 +16,7 @@
 
 package org.netling.ssh.connection.channel.forwarded;
 
-import org.netling.ssh.common.IOUtils;
+import org.netling.io.Util;
 import org.netling.ssh.connection.Connection;
 import org.netling.ssh.connection.channel.Channel;
 import org.netling.ssh.connection.channel.OpenFailException;
@@ -60,7 +60,7 @@ public abstract class AbstractForwardedChannelOpener
                 } catch (IOException logged) {
                     log.warn("In callback to {}: {}", listener, logged);
                     if (chan.isOpen())
-                        IOUtils.closeQuietly(chan);
+                        Util.closeQuietly(chan);
                     else
                         try {
                             chan.reject(OpenFailException.Reason.CONNECT_FAILED, "");

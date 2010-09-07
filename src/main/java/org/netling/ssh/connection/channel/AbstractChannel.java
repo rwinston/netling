@@ -40,7 +40,6 @@ import org.netling.concurrent.FutureUtils;
 import org.netling.ssh.common.Buffer;
 import org.netling.ssh.common.ByteArrayUtils;
 import org.netling.ssh.common.DisconnectReason;
-import org.netling.ssh.common.IOUtils;
 import org.netling.ssh.common.Message;
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.common.SSHPacket;
@@ -229,7 +228,7 @@ public abstract class AbstractChannel
 
     /** Called when all I/O streams should be closed. Subclasses can override but must call super. */
     protected void closeAllStreams() {
-        IOUtils.closeQuietly(in, out);
+        org.netling.io.Util.closeQuietly(in, out);
     }
 
     @Override

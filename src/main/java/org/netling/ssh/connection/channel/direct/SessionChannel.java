@@ -36,7 +36,6 @@
 package org.netling.ssh.connection.channel.direct;
 
 import org.netling.ssh.common.Buffer;
-import org.netling.ssh.common.IOUtils;
 import org.netling.ssh.common.SSHPacket;
 import org.netling.ssh.common.StreamCopier;
 import org.netling.ssh.connection.Connection;
@@ -219,7 +218,7 @@ public class
 
     @Override
     protected void closeAllStreams() {
-        IOUtils.closeQuietly(err);
+        org.netling.io.Util.closeQuietly(err);
         super.closeAllStreams();
     }
 

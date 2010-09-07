@@ -15,7 +15,7 @@
  */
 package org.netling.ssh.userauth.keyprovider;
 
-import org.netling.ssh.common.IOUtils;
+import org.netling.io.Util;
 import org.netling.ssh.common.KeyType;
 import org.netling.ssh.userauth.password.PasswordFinder;
 import org.netling.ssh.userauth.password.PasswordUtils;
@@ -119,7 +119,7 @@ public class PKCS8KeyFile
                     else
                         throw e;
                 } finally {
-                    IOUtils.closeQuietly(r);
+                    Util.closeQuietly(r);
                 }
                 break;
             }

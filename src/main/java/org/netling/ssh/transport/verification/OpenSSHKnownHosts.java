@@ -15,9 +15,9 @@
  */
 package org.netling.ssh.transport.verification;
 
+import org.netling.io.Util;
 import org.netling.util.Base64;
 import org.netling.ssh.common.Buffer;
-import org.netling.ssh.common.IOUtils;
 import org.netling.ssh.common.KeyType;
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.transport.mac.HMACSHA1;
@@ -241,7 +241,7 @@ public class OpenSSHKnownHosts
                         log.debug("Bad line ({}): {} ", ignore.toString(), line);
                     }
             } finally {
-                IOUtils.closeQuietly(br);
+                Util.closeQuietly(br);
             }
         }
     }

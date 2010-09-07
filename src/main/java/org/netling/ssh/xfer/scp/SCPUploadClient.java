@@ -15,7 +15,7 @@
  */
 package org.netling.ssh.xfer.scp;
 
-import org.netling.ssh.common.IOUtils;
+import org.netling.io.Util;
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.connection.channel.direct.SessionFactory;
 import org.netling.ssh.xfer.ModeGetter;
@@ -112,7 +112,7 @@ public final class SCPUploadClient
             signal("Transfer done");
             check("Remote agrees transfer done");
         } finally {
-            IOUtils.closeQuietly(src);
+            Util.closeQuietly(src);
         }
     }
 

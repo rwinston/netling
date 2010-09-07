@@ -15,6 +15,7 @@
  */
 package org.netling.ssh.common;
 
+import org.netling.io.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,7 @@ public class StreamCopier
         return new ErrorCallback() {
             @Override
             public void onError(IOException ioe) {
-                IOUtils.closeQuietly(toClose);
+                Util.closeQuietly(toClose);
             }
         };
     }

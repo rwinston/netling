@@ -15,7 +15,7 @@
  */
 package org.netling.ssh.userauth.keyprovider;
 
-import org.netling.ssh.common.IOUtils;
+import org.netling.io.Util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,7 +39,7 @@ public class KeyProviderUtil {
             throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(location));
         String firstLine = br.readLine();
-        IOUtils.closeQuietly(br);
+        Util.closeQuietly(br);
         if (firstLine == null)
             throw new IOException("Empty file");
         if (firstLine.startsWith("-----BEGIN") && firstLine.endsWith("PRIVATE KEY-----"))

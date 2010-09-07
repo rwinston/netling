@@ -15,8 +15,8 @@
  */
 package examples;
 
-import org.netling.sshj.SSHClient;
-import org.netling.sshj.sftp.SFTPClient;
+import org.netling.ssh.SSHClient;
+import org.netling.ssh.sftp.SFTPClient;
 
 import java.io.File;
 import java.io.IOException;

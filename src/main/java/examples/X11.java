@@ -15,11 +15,11 @@
  */
 package examples;
 
-import org.netling.sshj.SSHClient;
-import org.netling.sshj.common.StreamCopier;
-import org.netling.sshj.connection.channel.direct.Session;
-import org.netling.sshj.connection.channel.direct.Session.Command;
-import org.netling.sshj.connection.channel.forwarded.SocketForwardingConnectListener;
+import org.netling.ssh.SSHClient;
+import org.netling.ssh.common.StreamCopier;
+import org.netling.ssh.connection.channel.direct.Session;
+import org.netling.ssh.connection.channel.direct.Session.Command;
+import org.netling.ssh.connection.channel.forwarded.SocketForwardingConnectListener;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

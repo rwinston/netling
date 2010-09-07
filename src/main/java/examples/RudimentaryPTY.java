@@ -15,12 +15,12 @@
  */
 package examples;
 
-import org.netling.sshj.SSHClient;
-import org.netling.sshj.common.StreamCopier;
-import org.netling.sshj.connection.channel.direct.Session;
-import org.netling.sshj.connection.channel.direct.Session.Shell;
-import org.netling.sshj.transport.verification.ConsoleKnownHostsVerifier;
-import org.netling.sshj.transport.verification.OpenSSHKnownHosts;
+import org.netling.ssh.SSHClient;
+import org.netling.ssh.common.StreamCopier;
+import org.netling.ssh.connection.channel.direct.Session;
+import org.netling.ssh.connection.channel.direct.Session.Shell;
+import org.netling.ssh.transport.verification.ConsoleKnownHostsVerifier;
+import org.netling.ssh.transport.verification.OpenSSHKnownHosts;
 
 import java.io.File;
 import java.io.IOException;

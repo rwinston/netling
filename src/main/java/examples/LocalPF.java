@@ -15,7 +15,7 @@
  */
 package examples;
 
-import org.netling.sshj.SSHClient;
+import org.netling.ssh.SSHClient;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

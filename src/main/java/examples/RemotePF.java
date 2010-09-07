@@ -15,9 +15,9 @@
  */
 package examples;
 
-import org.netling.sshj.SSHClient;
-import org.netling.sshj.connection.channel.forwarded.RemotePortForwarder.Forward;
-import org.netling.sshj.connection.channel.forwarded.SocketForwardingConnectListener;
+import org.netling.ssh.SSHClient;
+import org.netling.ssh.connection.channel.forwarded.RemotePortForwarder.Forward;
+import org.netling.ssh.connection.channel.forwarded.SocketForwardingConnectListener;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

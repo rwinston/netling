@@ -14,7 +14,6 @@
 * limitations under the License.
 */
 
-
 package org.netling.io;
 
 import java.io.FilterInputStream;
@@ -30,14 +29,12 @@ import java.net.Socket;
  * a reference to the socket, and want to make sure it closes when the
  * stream closes.
  * <p>
- * <p>
  * @author Daniel F. Savarese
  * @see SocketOutputStream
  ***/
-
 public class SocketInputStream extends FilterInputStream
 {
-    private final Socket __socket;
+    private final Socket socket;
 
     /***
      * Creates a SocketInputStream instance wrapping an input stream and
@@ -50,7 +47,7 @@ public class SocketInputStream extends FilterInputStream
     public SocketInputStream(Socket socket, InputStream stream)
     {
         super(stream);
-        __socket = socket;
+        this.socket = socket;
     }
 
     /***
@@ -64,6 +61,6 @@ public class SocketInputStream extends FilterInputStream
     public void close() throws IOException
     {
         super.close();
-        __socket.close();
+        socket.close();
     }
 }

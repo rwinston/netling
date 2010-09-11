@@ -52,7 +52,6 @@ import java.io.IOException;
  ***/
 
 public class FTPConnectionClosedException extends IOException {
-	private static final long serialVersionUID = -5075277683497453418L;
 
 	/*** Constructs a FTPConnectionClosedException with no message ***/
     public FTPConnectionClosedException()

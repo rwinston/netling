@@ -41,8 +41,8 @@ package org.netling.ftp.parser;
  * instantiating an FTPFileEntryParser.
  */
 public class ParserInitializationException extends RuntimeException {
-	private static final long serialVersionUID = -4101148636185521459L;
-	/**
+
+    /**
      * Root exception that caused this to be thrown
      */
     private final Throwable rootCause;

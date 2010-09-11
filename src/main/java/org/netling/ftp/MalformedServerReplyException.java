@@ -46,8 +46,6 @@ import java.io.IOException;
  */
 public class MalformedServerReplyException extends IOException {
 
-	private static final long serialVersionUID = 18841574963097163L;
-
 	/*** Constructs a MalformedServerReplyException with no message ***/
     public MalformedServerReplyException()
     {

@@ -49,9 +49,8 @@ import java.util.EnumSet;
  * @see FTPClient#listFiles
  ***/
 
-public class FTPFile implements Serializable {
-	private static final long serialVersionUID = 7439123701566206188L;
-	
+public class FTPFile {
+
 	/**
 	 * An enumeration that represents the file type
 	 */

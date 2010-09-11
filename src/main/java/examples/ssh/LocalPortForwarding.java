@@ -13,35 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package examples;
+package examples.ssh;
 
-import org.netling.scp.SCPFileTransfer;
 import org.netling.ssh.SSHClient;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 
-/** This example demonstrates uploading of a file over SCP to the SSH server. */
-public class SCPUpload {
+/**
+ * This example demonstrates local port forwarding, i.e. when we listen on a particular address and port; and forward
+ * all incoming connections to SSH server which further forwards them to a specified address and port.
+ */
+public class LocalPortForwarding {
 
-    public static void main(String[] args)
-            throws IOException, ClassNotFoundException {
+    public static void main(String... args)
+            throws IOException {
         SSHClient ssh = new SSHClient();
+
         ssh.loadKnownHosts();
+
         ssh.connect("localhost");
         try {
+
             ssh.authPublickey(System.getProperty("user.name"));
 
-            // Present here to demo algorithm renegotiation - could have just put this before connect()
-            // Make sure JZlib is in classpath for this to work
-            ssh.useCompression();
+            /*
+            * _We_ listen on localhost:8080 and forward all connections on to server, which then forwards it to
+            * google.com:80
+            */
+            ssh.newLocalPortForwarder(new InetSocketAddress("localhost", 8080), "google.com", 80)
+                    .listen();
 
-            final String src = System.getProperty("user.home") + File.separator + "test_file";
-            final String target = "/tmp/";
-            final SCPFileTransfer xfer = new SCPFileTransfer(ssh);
-            xfer.upload(src, target);
         } finally {
             ssh.disconnect();
         }
     }
+
 }

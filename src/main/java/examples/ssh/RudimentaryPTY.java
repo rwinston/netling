@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package examples;
+package examples.ssh;
 
 import org.netling.io.StreamCopier;
 import org.netling.ssh.SSHClient;

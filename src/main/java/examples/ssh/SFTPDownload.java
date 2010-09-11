@@ -13,28 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package examples;
+package examples.ssh;
 
-import org.netling.scp.SCPFileTransfer;
 import org.netling.ssh.SSHClient;
+import org.netling.sftp.SFTPClient;
 
 import java.io.IOException;
 
-/** This example demonstrates downloading of a file over SCP from the SSH server. */
-public class SCPDownload {
+/** This example demonstrates downloading of a file over SFTP from the SSH server. */
+public class SFTPDownload {
 
     public static void main(String[] args)
             throws IOException {
-        SSHClient ssh = new SSHClient();
-        // ssh.useCompression(); // Can lead to significant speedup (needs JZlib in classpath)
+        final SSHClient ssh = new SSHClient();
         ssh.loadKnownHosts();
         ssh.connect("localhost");
         try {
             ssh.authPublickey(System.getProperty("user.name"));
             final String src = "test_file";
             final String target = "/tmp/";
-            final SCPFileTransfer xfer = new SCPFileTransfer(ssh);
-            xfer.download(src, target);
+
+            final SFTPClient sftp = new SFTPClient(ssh);
+            try {
+                sftp.get(src, target);
+            } finally {
+                sftp.close();
+            }
+
         } finally {
             ssh.disconnect();
         }

@@ -13,37 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package examples;
+package examples.ssh;
 
 import org.netling.ssh.SSHClient;
+import org.netling.sftp.SFTPClient;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.InetSocketAddress;
 
-/**
- * This example demonstrates local port forwarding, i.e. when we listen on a particular address and port; and forward
- * all incoming connections to SSH server which further forwards them to a specified address and port.
- */
-public class LocalPF {
+/** This example demonstrates uploading of a file over SFTP to the SSH server. */
+public class SFTPUpload {
 
-    public static void main(String... args)
+    public static void main(String[] args)
             throws IOException {
-        SSHClient ssh = new SSHClient();
-
+        final SSHClient ssh = new SSHClient();
         ssh.loadKnownHosts();
-
         ssh.connect("localhost");
         try {
-
             ssh.authPublickey(System.getProperty("user.name"));
-
-            /*
-            * _We_ listen on localhost:8080 and forward all connections on to server, which then forwards it to
-            * google.com:80
-            */
-            ssh.newLocalPortForwarder(new InetSocketAddress("localhost", 8080), "google.com", 80)
-                    .listen();
-
+            final String src = System.getProperty("user.home") + File.separator + "test_file";
+            final String target = "/tmp/";
+            final SFTPClient sftp = new SFTPClient(ssh);
+            try {
+                sftp.put(src, target);
+            } finally {
+                sftp.close();
+            }
         } finally {
             ssh.disconnect();
         }

@@ -22,7 +22,7 @@ import java.util.Locale;
 import org.netling.ftp.FTPFile;
 import org.netling.ftp.FTPFileEntryParser;
 
-p3ublic abstract class FTPParseTestFramework extends TestCase
+public abstract class FTPParseTestFramework extends TestCase
 {
     private FTPFileEntryParser parser = null;
     protected SimpleDateFormat df = null;

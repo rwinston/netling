@@ -52,7 +52,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.netling.MalformedServerReplyException;
 import org.netling.ftp.parser.DefaultFTPFileEntryParserFactory;
 import org.netling.ftp.parser.FTPFileEntryParserFactory;
 import org.netling.ftp.parser.ParserInitializationException;
@@ -60,7 +59,6 @@ import org.netling.io.CopyStreamException;
 import org.netling.io.FromNetASCIIInputStream;
 import org.netling.io.StreamCopier;
 import org.netling.io.ToNetASCIIOutputStream;
-import org.netling.io.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -188,7 +186,7 @@ import org.slf4j.LoggerFactory;
  * Rather than list it separately for each method, we mention here that
  * every method communicating with the server and throwing an IOException
  * can also throw a
- * {@link org.netling.MalformedServerReplyException}
+ * {@link MalformedServerReplyException}
  * , which is a subclass
  * of IOException.  A MalformedServerReplyException will be thrown when
  * the reply received from the server deviates enough from the protocol
@@ -253,7 +251,7 @@ import org.slf4j.LoggerFactory;
  * @see DefaultFTPFileEntryParserFactory
  * @see FTPClientConfig
  *
- * @see org.netling.MalformedServerReplyException
+ * @see MalformedServerReplyException
  **/
 public class FTPClient extends FTP
 implements Configurable {

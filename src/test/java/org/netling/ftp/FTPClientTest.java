@@ -42,7 +42,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import org.junit.Test;
-import org.netling.MalformedServerReplyException;
 
 
 public class FTPClientTest {

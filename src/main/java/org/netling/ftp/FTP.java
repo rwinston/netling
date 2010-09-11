@@ -47,7 +47,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-import org.netling.MalformedServerReplyException;
 import org.netling.ProtocolCommandListener;
 import org.netling.ProtocolCommandSupport;
 import org.netling.SocketClient;
@@ -99,7 +98,7 @@ import org.slf4j.LoggerFactory;
  * Rather than list it separately for each method, we mention here that
  * every method communicating with the server and throwing an IOException
  * can also throw a
- * {@link org.netling.MalformedServerReplyException}
+ * {@link MalformedServerReplyException}
  * , which is a subclass
  * of IOException.  A MalformedServerReplyException will be thrown when
  * the reply received from the server deviates enough from the protocol
@@ -109,7 +108,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * @see FTPClient
  * @see FTPConnectionClosedException
- * @see org.netling.MalformedServerReplyException
+ * @see MalformedServerReplyException
  ***/
 
 public class FTP extends SocketClient

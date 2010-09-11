@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Shikhar Bhushan
+ * Copyright 2010 netling project <http://netling.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@ public class DefaultConfig
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private static final String VERSION = "SSHJ_0_3";
+    private static final String VERSION = "NETLING_1_0";
 
     public DefaultConfig() {
         setVersion(VERSION);

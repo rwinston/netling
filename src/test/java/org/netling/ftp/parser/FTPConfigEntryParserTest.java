@@ -30,8 +30,6 @@ import org.netling.ftp.FTPFile;
  * entries, however using a configurable format, we can handle it easily.
  * 
  * The original system presenting this issue was an AIX system - see bug #27437 for details.
- * 
- *  @version $Id$
  */
 public class FTPConfigEntryParserTest extends TestCase {
     

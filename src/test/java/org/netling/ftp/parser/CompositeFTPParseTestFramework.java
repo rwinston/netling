@@ -19,10 +19,6 @@ package org.netling.ftp.parser;
 import org.netling.ftp.FTPFile;
 import org.netling.ftp.FTPFileEntryParser;
 
-/**
- * @author <a href="mario@ops.co.at">MarioIvankovits</a>
- * @version $Id: CompositeFTPParseTestFramework.java 155429 2005-02-26 13:13:04Z dirkv $
- */
 public abstract class CompositeFTPParseTestFramework extends FTPParseTestFramework
 {
     /**

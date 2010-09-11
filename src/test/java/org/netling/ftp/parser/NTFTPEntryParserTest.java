@@ -21,10 +21,6 @@ import java.util.Calendar;
 import org.netling.ftp.FTPFile;
 import org.netling.ftp.FTPFileEntryParser;
 
-/**
- * @author <a href="mailto:scohen@apache.org">Steve Cohen</a>
- * @version $Id: NTFTPEntryParserTest.java 629276 2008-02-19 23:31:25Z rwinston $
- */
 public class NTFTPEntryParserTest extends CompositeFTPParseTestFramework
 {
 

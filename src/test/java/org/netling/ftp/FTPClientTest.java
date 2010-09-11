@@ -14,8 +14,6 @@ public class FTPClientTest {
 	
 	/**
 	 * Dummy client class that saves calling methods on an unconnected socket
-	 * @author rory
-	 *
 	 */
 	class DummyFTPClient extends FTPClient {
 		@Override

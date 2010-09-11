@@ -23,11 +23,6 @@ import org.netling.ftp.FTPFile;
 import org.netling.ftp.FTPFileEntryParser;
 import org.netling.ftp.FTPListParseEngine;
 
-/**
- * @author <a href="mailto:scohen@apache.org">Steve Cohen</a>
- * @author <a href="sestegra@free.fr">Stephane ESTE-GRACIAS</a>
- * @version $Id: VMSFTPEntryParserTest.java 657169 2008-05-16 19:07:02Z sebb $
- */
 public class VMSFTPEntryParserTest extends FTPParseTestFramework
 {
     private static final String[] badsamples =

@@ -19,10 +19,6 @@ package org.netling.ftp.parser;
 import org.netling.ftp.FTPFile;
 import org.netling.ftp.FTPFileEntryParser;
 
-/**
- * @author <a href="mailto:scohen@apache.org">Steve Cohen</a>
- * @version $Id: OS2FTPEntryParserTest.java 437134 2006-08-26 09:36:36Z rwinston $
- */
 public class OS2FTPEntryParserTest extends FTPParseTestFramework
 {
 

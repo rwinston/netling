@@ -22,15 +22,6 @@ import java.util.List;
 import org.netling.ftp.FTPFile;
 import org.netling.ftp.FTPFileEntryParser;
 
-/**
- * Changed on August 31, 2006<br/>
- * Test suite addapted to new MVSFTPEntryParser.java.
- * @author <a href="mailto:henrik.sorensen@balcab.ch">Henrik Sorensen</a>
- * 
- * Created on Apr 6, 2005<br/>
- * @author <a href="mailto:wnoto@openfinance.com">William Noto</a>
- * @version $Id: MVSFTPEntryParserTest.java,v 1.16 2005/01/02 03:17:50 scohen Exp $
- */
 public class MVSFTPEntryParserTest extends FTPParseTestFramework {
 
     private static final String[] goodsamplesDatasetList = { /* Note, if the string begins with SAVE, the parsed entry is stored in the List saveftpfiles */

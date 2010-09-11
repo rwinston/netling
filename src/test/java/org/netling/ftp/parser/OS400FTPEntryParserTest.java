@@ -21,10 +21,6 @@ import org.netling.ftp.FTPFileEntryParser;
 
 import java.util.Calendar;
 
-/**
- * @version $Id: OS400FTPEntryParserTest.java 155429 2005-02-26 13:13:04Z dirkv $
- */
-
 public class OS400FTPEntryParserTest extends CompositeFTPParseTestFramework
 {
     private static final String[][] badsamples =

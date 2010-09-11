@@ -27,8 +27,6 @@ import org.junit.Test;
 
 /**
  * Test the socket connect timeout functionality
- * @author Rory <rwinston@apache.org>
- *
  */
 public class TestConnectTimeout  {
 

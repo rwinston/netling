@@ -21,10 +21,6 @@ import java.util.Calendar;
 import org.netling.ftp.FTPFile;
 import org.netling.ftp.FTPFileEntryParser;
 
-/**
- * @author <a href="mailto:scohen@apache.org">Steve Cohen</a>
- * @version $Id: UnixFTPEntryParserTest.java 629276 2008-02-19 23:31:25Z rwinston $
- */
 public class UnixFTPEntryParserTest extends FTPParseTestFramework {
 
     private static final String[] badsamples = {

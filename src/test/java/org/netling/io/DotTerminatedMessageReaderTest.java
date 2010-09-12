@@ -17,18 +17,21 @@
 
 package org.netling.io;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.io.StringReader;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class DotTerminatedMessageReaderTest extends TestCase {
+public class DotTerminatedMessageReaderTest {
 
     private DotTerminatedMessageReader reader;
     private StringBuilder str = new StringBuilder();
     private char[] buf = new char[64];
     final static String SEP = System.getProperty("line.separator");
 
+    @Test
     public void testReadSimpleStringCrLfLineEnding() throws IOException {
         final String test = "Hello World!\r\n.\r\n";
         reader = new DotTerminatedMessageReader(new StringReader(test));
@@ -42,6 +45,7 @@ public class DotTerminatedMessageReaderTest extends TestCase {
         assertEquals("Hello World!" + String.valueOf(reader.LS_CHARS), str.toString());
     }
 
+    @Test
     public void testReadSimpleStringLfLineEnding() throws IOException {
         final String test = "Hello World!\r\n.\r\n";
         reader = new DotTerminatedMessageReader(new StringReader(test));
@@ -55,6 +59,7 @@ public class DotTerminatedMessageReaderTest extends TestCase {
         assertEquals("Hello World!" + String.valueOf(reader.LS_CHARS), str.toString());
     }
 
+    @Test
     public void testEmbeddedNewlines() throws IOException {
         final String test = "Hello\r\nWorld\nA\rB\r\n.\r\n";
         reader = new DotTerminatedMessageReader(new StringReader(test));
@@ -67,6 +72,7 @@ public class DotTerminatedMessageReaderTest extends TestCase {
         assertEquals(str.toString(), "Hello" + SEP  +"World\nA\rB" + SEP);
     }
 
+    @Test
     public void testDoubleCrBeforeDot() throws IOException {
         final String test = "Hello World!\r\r\n.\r\n";
         reader = new DotTerminatedMessageReader(new StringReader(test));

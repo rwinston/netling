@@ -19,13 +19,11 @@ package org.netling.ftp;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLServerSocket;
 
 /**
  * 
@@ -61,28 +59,4 @@ public class FTPSSocketFactory extends SocketFactory {
         return this.context.getSocketFactory().createSocket(address, port, localAddress, localPort);
     }
 
-    /** @deprecated use {@link FTPSServerSocketFactory#createServerSocket(int) instead} */
-    @Deprecated
-    public ServerSocket createServerSocket(int port) throws IOException {
-        return this.init(this.context.getServerSocketFactory().createServerSocket(port));
-    }
-
-    /** @deprecated  use {@link FTPSServerSocketFactory#createServerSocket(int, int) instead} */
-    @Deprecated
-    public ServerSocket createServerSocket(int port, int backlog) throws IOException {
-        return this.init(this.context.getServerSocketFactory().createServerSocket(port, backlog));
-    }
-
-    /** @deprecated  use {@link FTPSServerSocketFactory#createServerSocket(int, int, InetAddress) instead} */
-    @Deprecated
-    public ServerSocket createServerSocket(int port, int backlog, InetAddress ifAddress) throws IOException {
-        return this.init(this.context.getServerSocketFactory().createServerSocket(port, backlog, ifAddress));
-    }
-        
-    /** @deprecated  use {@link FTPSServerSocketFactory#init(ServerSocket)} */
-    @Deprecated
-    public ServerSocket init(ServerSocket socket) throws IOException {
-        ((SSLServerSocket) socket).setUseClientMode(true);
-        return socket;
-    }
 }

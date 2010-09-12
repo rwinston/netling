@@ -34,3 +34,22 @@ bis.close();
 // This should be done before executing subsequent commands
 client.completePendingCommand();
 END SNIPPET: filedownload2
+
+START SNIPPET: fileupload0
+boolean success = client.upload("remote", "local");
+END SNIPPET: fileupload0
+
+START SNIPPET: encoding
+client.setControlEncoding("UTF8");
+END SNIPPET: encoding
+
+
+START SNIPPET: filetype
+import org.netling.ftp.FTP.FileType;
+
+// Binary (I) file type
+client.setFileType(FileType.BINARY);
+
+// ASCII (A) file type
+client.setFileType(FileType.ASCII);
+END SNIPPET: filetype

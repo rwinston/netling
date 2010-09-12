@@ -18,6 +18,8 @@ package org.netling.ftp;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -40,7 +42,6 @@ import org.netling.io.CopyStreamException;
 import org.netling.io.FromNetASCIIInputStream;
 import org.netling.io.StreamCopier;
 import org.netling.io.ToNetASCIIOutputStream;
-import org.netling.io.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -105,12 +106,12 @@ import org.slf4j.LoggerFactory;
  * a success or failure.
  * <p>
  * The default settings for FTPClient are for it to use
- * <code> FTP.ASCII_FILE_TYPE </code>,
- * <code> FTP.NON_PRINT_TEXT_FORMAT </code>,
- * <code> FTP.STREAM_TRANSFER_MODE </code>, and
- * <code> FTP.FILE_STRUCTURE </code>.  The only file types directly supported
- * are <code> FTP.ASCII_FILE_TYPE </code> and
- * <code> FTP.BINARY_FILE_TYPE </code>.  Because there are at least 4
+ * <code> {@link FileType#ASCII} </code>,
+ * <code> {@link FileFormat#NON_PRINT_TEXT} </code>,
+ * <code> {@link FileTransferMode#STREAM}</code>, and
+ * <code> {@link FileStructure#FILE}</code>.  The only file types directly supported
+ * are <code> {@link FileType#ASCII} </code> and
+ * <code> {@link FileType#BINARY} </code>.  Because there are at least 4
  * different EBCDIC encodings, we have opted not to provide direct support
  * for EBCDIC.  To transfer EBCDIC and other unsupported file types you
  * must create your own filter InputStreams and OutputStreams and wrap
@@ -119,9 +120,9 @@ import org.slf4j.LoggerFactory;
  * filter streams to provide transparent handling of ASCII files.  We will
  * consider incorporating EBCDIC support if there is enough demand.
  * <p>
- * <code> FTP.NON_PRINT_TEXT_FORMAT </code>,
- * <code> FTP.STREAM_TRANSFER_MODE </code>, and
- * <code> FTP.FILE_STRUCTURE </code> are the only supported formats,
+ * <code> {@link FileFormat#NON_PRINT_TEXT} </code>,
+ * <code> {@link FileTransferMode#STREAM} </code>, and
+ * <code> {@link FileStructure#FILE} </code> are the only supported formats,
  * transfer modes, and file structures.
  * <p>
  * Because the handling of sockets on different platforms can differ
@@ -241,39 +242,42 @@ public class FTPClient extends FTP
 implements Configurable {
     /** Logger */
     protected final Logger log = LoggerFactory.getLogger(getClass());
+    
+    enum ConnectionMode {
+    	 /***
+         * A constant indicating the FTP session is expecting all transfers
+         * to occur between the client (local) and server and that the server
+         * should connect to the client's data port to initiate a data transfer.
+         * This is the default data connection mode when and FTPClient instance
+         * is created.
+         ***/
+    	ACTIVE_LOCAL,
+    	 /***
+         * A constant indicating the FTP session is expecting all transfers
+         * to occur between the client (local) and server and that the server
+         * is in passive mode, requiring the client to connect to the
+         * server's data port to initiate a transfer.
+         ***/
+    	ACTIVE_REMOTE,
+    	 /***
+         * A constant indicating the FTP session is expecting all transfers
+         * to occur between the client (local) and server and that the server
+         * is in passive mode, requiring the client to connect to the
+         * server's data port to initiate a transfer.
+         ***/
+    	PASSIVE_LOCAL,
+    	/***
+         * A constant indicating the FTP session is expecting all transfers
+         * to occur between two remote servers and that the server
+         * the client is connected to is in passive mode, requiring the other
+         * server to connect to the first server's data port to initiate a data
+         * transfer.
+         ***/
+    	PASSIVE_REMOTE;
+    }
 
-    /***
-     * A constant indicating the FTP session is expecting all transfers
-     * to occur between the client (local) and server and that the server
-     * should connect to the client's data port to initiate a data transfer.
-     * This is the default data connection mode when and FTPClient instance
-     * is created.
-     ***/
-    public static final int ACTIVE_LOCAL_DATA_CONNECTION_MODE = 0;
-    /***
-     * A constant indicating the FTP session is expecting all transfers
-     * to occur between two remote servers and that the server
-     * the client is connected to should connect to the other server's
-     * data port to initiate a data transfer.
-     ***/
-    public static final int ACTIVE_REMOTE_DATA_CONNECTION_MODE = 1;
-    /***
-     * A constant indicating the FTP session is expecting all transfers
-     * to occur between the client (local) and server and that the server
-     * is in passive mode, requiring the client to connect to the
-     * server's data port to initiate a transfer.
-     ***/
-    public static final int PASSIVE_LOCAL_DATA_CONNECTION_MODE = 2;
-    /***
-     * A constant indicating the FTP session is expecting all transfers
-     * to occur between two remote servers and that the server
-     * the client is connected to is in passive mode, requiring the other
-     * server to connect to the first server's data port to initiate a data
-     * transfer.
-     ***/
-    public static final int PASSIVE_REMOTE_DATA_CONNECTION_MODE = 3;
-
-    private int dataConnectionMode, dataTimeout;
+    private ConnectionMode dataConnectionMode;
+    private int dataTimeout;
     private int passivePort;
     private String passiveHost;
     private final Random random;
@@ -337,7 +341,7 @@ implements Configurable {
 
     private void initDefaults()
     {
-        dataConnectionMode = ACTIVE_LOCAL_DATA_CONNECTION_MODE;
+        dataConnectionMode = ConnectionMode.ACTIVE_LOCAL;
         passiveHost        = null;
         passivePort        = -1;
         activeExternalHost = null;
@@ -509,13 +513,13 @@ implements Configurable {
     {
         Socket socket;
 
-        if (dataConnectionMode != ACTIVE_LOCAL_DATA_CONNECTION_MODE &&
-                dataConnectionMode != PASSIVE_LOCAL_DATA_CONNECTION_MODE)
+        if (dataConnectionMode != ConnectionMode.ACTIVE_LOCAL &&
+                dataConnectionMode != ConnectionMode.PASSIVE_LOCAL)
             return null;
 
         final boolean isInet6Address = getRemoteAddress() instanceof Inet6Address;
         
-        if (dataConnectionMode == ACTIVE_LOCAL_DATA_CONNECTION_MODE)
+        if (dataConnectionMode == ConnectionMode.ACTIVE_LOCAL)
         {
             // if no activePortRange was set (correctly) -> getActivePort() = 0
             // -> new ServerSocket(0) -> bind to any free local port
@@ -893,7 +897,7 @@ implements Configurable {
      ***/
     public void enterLocalActiveMode()
     {
-        dataConnectionMode = ACTIVE_LOCAL_DATA_CONNECTION_MODE;
+        dataConnectionMode = ConnectionMode.ACTIVE_LOCAL;
         passiveHost = null;
         passivePort = -1;
     }
@@ -916,7 +920,7 @@ implements Configurable {
      ***/
     public void enterLocalPassiveMode()
     {
-        dataConnectionMode = PASSIVE_LOCAL_DATA_CONNECTION_MODE;
+        dataConnectionMode = ConnectionMode.PASSIVE_LOCAL;
         // These will be set when just before a data connection is opened
         // in _openDataConnection_()
         passiveHost = null;
@@ -953,7 +957,7 @@ implements Configurable {
     {
         if (FTPReply.isPositiveCompletion(port(host, port)))
         {
-            dataConnectionMode = ACTIVE_REMOTE_DATA_CONNECTION_MODE;
+            dataConnectionMode = ConnectionMode.ACTIVE_REMOTE;
             passiveHost = null;
             passivePort = -1;
             return true;
@@ -988,7 +992,7 @@ implements Configurable {
         if (pasv() != FTPReply.ENTERING_PASSIVE_MODE.code())
             return false;
 
-        dataConnectionMode = PASSIVE_REMOTE_DATA_CONNECTION_MODE;
+        dataConnectionMode = ConnectionMode.PASSIVE_REMOTE;
         parsePassiveModeReply(replyLines.get(0));
 
         return true;
@@ -1030,13 +1034,11 @@ implements Configurable {
 
 
     /***
-     * Returns the current data connection mode (one of the
-     * <code> _DATA_CONNECTION_MODE </code> constants.
+     * Returns the current data connection mode (A {@link ConnectionMode} instance)
      * <p>
-     * @return The current data connection mode (one of the
-     * <code> _DATA_CONNECTION_MODE </code> constants.
+     * @return The current data connection mode 
      ***/
-    public int getDataConnectionMode()
+    public ConnectionMode getDataConnectionMode()
     {
         return dataConnectionMode;
     }
@@ -1107,15 +1109,15 @@ implements Configurable {
 
     /***
      * Sets the file type to be transferred.  This should be one of
-     * <code> FTP.ASCII_FILE_TYPE </code>, <code> FTP.BINARY_FILE_TYPE</code>,
+     * <code> {@link FileType#ASCII} </code>, <code> {@link FileType#BINARY}</code>,
      * etc.  The file type only needs to be set when you want to change the
      * type.  After changing it, the new type stays in effect until you change
-     * it again.  The default file type is <code> FTP.ASCII_FILE_TYPE </code>
+     * it again.  The default file type is <code> {@link FileType#ASCII}</code>
      * if this method is never called.
      * <p>
      * <b>N.B.</b> currently calling any connect method will reset the mode to 
-     * ACTIVE_LOCAL_DATA_CONNECTION_MODE.
-     * @param fileType The <code> _FILE_TYPE </code> constant indcating the
+     * {@link ConnectionMode#ACTIVE_LOCAL}
+     * @param fileType {@link FileType} instance indicating the
      *                 type of file.
      * @return True if successfully completed, false if not.
      * @exception FTPConnectionClosedException
@@ -1139,19 +1141,19 @@ implements Configurable {
 
 
     /***
-     * Sets the file type to be transferred and the format.  The type should be
-     * one of  <code> {@link FileType#ASCII}</code>,
-     * <code> {@link FileType#BINARY} </code>, etc.  The file type only needs to
-     * be set when you want to change the type.  After changing it, the new
-     * type stays in effect until you change it again.  The default file type
-     * is <code> {@link FileType#ASCII} </code> if this method is never called.
+      * Sets the file type to be transferred.  This should be one of
+     * <code> {@link FileType#ASCII} </code>, <code> {@link FileType#BINARY}</code>,
+     * etc.  The file type only needs to be set when you want to change the
+     * type.  After changing it, the new type stays in effect until you change
+     * it again.  The default file type is <code> {@link FileType#ASCII}</code>
+     * if this method is never called.
      * The format should be one of the FTP class <code> {@link FileFormat} </code>
      * constants. The default format
      * is <code> {@link FileFormat#NON_PRINT_TEXT} </code> if this method is never
      * called.
      * <p>
      * <b>N.B.</b> currently calling any connect method will reset the mode to 
-     * ACTIVE_LOCAL_DATA_CONNECTION_MODE.
+     * {@link ConnectionMode#ACTIVE_LOCAL}.
      * <p>
      * @param fileType The <code> {@link FileType} </code> constant indicating the
      *                 type of file.
@@ -1280,8 +1282,8 @@ implements Configurable {
      ***/
     public boolean remoteRetrieve(String filename) throws IOException
     {
-        if (dataConnectionMode == ACTIVE_REMOTE_DATA_CONNECTION_MODE ||
-                dataConnectionMode == PASSIVE_REMOTE_DATA_CONNECTION_MODE)
+        if (dataConnectionMode == ConnectionMode.ACTIVE_REMOTE ||
+                dataConnectionMode == ConnectionMode.PASSIVE_REMOTE)
             return FTPReply.isPositivePreliminary(retr(filename));
         return false;
     }
@@ -1306,8 +1308,8 @@ implements Configurable {
      ***/
     public boolean remoteStore(String filename) throws IOException
     {
-        if (dataConnectionMode == ACTIVE_REMOTE_DATA_CONNECTION_MODE ||
-                dataConnectionMode == PASSIVE_REMOTE_DATA_CONNECTION_MODE)
+        if (dataConnectionMode == ConnectionMode.ACTIVE_REMOTE ||
+                dataConnectionMode == ConnectionMode.PASSIVE_REMOTE)
             return FTPReply.isPositivePreliminary(stor(filename));
         return false;
     }
@@ -1333,8 +1335,8 @@ implements Configurable {
      ***/
     public boolean remoteStoreUnique(String filename) throws IOException
     {
-        if (dataConnectionMode == ACTIVE_REMOTE_DATA_CONNECTION_MODE ||
-                dataConnectionMode == PASSIVE_REMOTE_DATA_CONNECTION_MODE)
+    	if (dataConnectionMode == ConnectionMode.ACTIVE_REMOTE ||
+                dataConnectionMode == ConnectionMode.PASSIVE_REMOTE)
             return FTPReply.isPositivePreliminary(stou(filename));
         return false;
     }
@@ -1360,8 +1362,8 @@ implements Configurable {
      ***/
     public boolean remoteStoreUnique() throws IOException
     {
-        if (dataConnectionMode == ACTIVE_REMOTE_DATA_CONNECTION_MODE ||
-                dataConnectionMode == PASSIVE_REMOTE_DATA_CONNECTION_MODE)
+    	if (dataConnectionMode == ConnectionMode.ACTIVE_REMOTE ||
+                dataConnectionMode == ConnectionMode.PASSIVE_REMOTE)
             return FTPReply.isPositivePreliminary(stou());
         return false;
     }
@@ -1387,8 +1389,8 @@ implements Configurable {
      ***/
     public boolean remoteAppend(String filename) throws IOException
     {
-        if (dataConnectionMode == ACTIVE_REMOTE_DATA_CONNECTION_MODE ||
-                dataConnectionMode == PASSIVE_REMOTE_DATA_CONNECTION_MODE)
+    	if (dataConnectionMode == ConnectionMode.ACTIVE_REMOTE ||
+                dataConnectionMode == ConnectionMode.PASSIVE_REMOTE)
             return FTPReply.isPositivePreliminary(stor(filename));
         return false;
     }
@@ -1598,6 +1600,24 @@ implements Configurable {
     throws IOException
     {
         return storeFile(FTPCommand.STOR, remote, local);
+    }
+    
+    
+    /**
+     * Convenience method to store a file on the server. Wraps the underlying {@link #storeFile(String, InputStream)}
+     * command and closes the associated input stream.
+     * @param remote The remote filename
+     * @param local The local filename
+     * @return True if the operation succeeded, false otherwise
+     * @throws IOException if an error happens during the remote upload
+     */
+    public boolean upload(String remote, String local) 
+    throws IOException {
+    	final File localFile = new File(local);
+    	InputStream is = new FileInputStream(localFile);
+    	boolean success = storeFile(remote, is);
+    	is.close();
+    	return success;
     }
 
 
@@ -2570,7 +2590,7 @@ implements Configurable {
     }
 
     /**
-     * 
+     * Get extra arguments to the <code>LIST</code> command
      */
     protected String getListArguments(String pathname) {
         if (getListHiddenFiles())

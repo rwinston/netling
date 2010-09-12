@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.Map.Entry;
 
 /***
  * The FTPFile class is used to represent information about files stored
@@ -55,7 +56,7 @@ public class FTPFile implements Serializable {
     public enum Access {
     	USER,
     	GROUP,
-    	WORLD
+    	WORLD;
     }
     
     /**
@@ -66,7 +67,16 @@ public class FTPFile implements Serializable {
     public enum Permission {
     	READ, 
     	WRITE,
-    	EXECUTE
+    	EXECUTE;
+    	
+    	public String toString() {
+    		if (this==READ)
+    			return "r";
+    		else if (this==WRITE)
+    			return "w";
+    		else 
+    			return "x";
+    	};	
     }
 
     private Type type; 
@@ -81,6 +91,11 @@ public class FTPFile implements Serializable {
     public FTPFile()
     {
         permissions = new EnumMap<FTPFile.Access, EnumSet<Permission>>(Access.class);
+        
+        permissions.put(Access.USER, EnumSet.noneOf(Permission.class));
+        permissions.put(Access.GROUP, EnumSet.noneOf(Permission.class));
+        permissions.put(Access.WORLD, EnumSet.noneOf(Permission.class));
+        
         rawListing = null;
         type = Type.UNKNOWN;
         hardLinkCount = 0;
@@ -95,7 +110,7 @@ public class FTPFile implements Serializable {
     /***
      * Set the original FTP server raw listing from which the FTPFile was
      * created.
-     * <p>
+     * 
      * @param rawListing  The raw FTP server listing.
      ***/
     public void setRawListing(String rawListing)
@@ -105,7 +120,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Get the original FTP server raw listing used to initialize the FTPFile.
-     * <p>
+     * 
      * @return The original FTP server raw listing used to initialize the
      *         FTPFile.
      ***/
@@ -117,7 +132,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Determine if the file is a directory.
-     * <p>
+     * 
      * @return True if the file is of type <code>DIRECTORY_TYPE</code>, false if
      *         not.
      ***/
@@ -128,7 +143,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Determine if the file is a regular file.
-     * <p>
+     * 
      * @return True if the file is of type <code>FILE_TYPE</code>, false if
      *         not.
      ***/
@@ -139,7 +154,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Determine if the file is a symbolic link.
-     * <p>
+     * 
      * @return True if the file is of type <code>UNKNOWN_TYPE</code>, false if
      *         not.
      ***/
@@ -150,7 +165,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Determine if the type of the file is unknown.
-     * <p>
+     * 
      * @return True if the file is of type <code>UNKNOWN_TYPE</code>, false if
      *         not.
      ***/
@@ -162,7 +177,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Set the type of the file 
-     * <p>
+     * 
      * @param type  The {@link Type} instance representing the type of the file.
      ***/
     public void setType(final Type type)
@@ -174,7 +189,7 @@ public class FTPFile implements Serializable {
     /***
      * Return the type of the file 
      * e.g., if it is a directory, a regular file, or a symbolic link.
-     * <p>
+     * 
      * @return The type of the file.
      ***/
     public Type getType()
@@ -185,7 +200,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Set the name of the file.
-     * <p>
+     * 
      * @param name  The name of the file.
      ***/
     public void setName(String name)
@@ -195,7 +210,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Return the name of the file.
-     * <p>
+     * 
      * @return The name of the file.
      ***/
     public String getName()
@@ -216,7 +231,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Return the file size in bytes.
-     * <p>
+     * 
      * @return The file size in bytes.
      ***/
     public long getSize()
@@ -228,7 +243,7 @@ public class FTPFile implements Serializable {
     /***
      * Set the number of hard links to this file.  This is not to be
      * confused with symbolic links.
-     * <p>
+     * 
      * @param links  The number of hard links to this file.
      ***/
     public void setHardLinkCount(int links)
@@ -240,7 +255,7 @@ public class FTPFile implements Serializable {
     /***
      * Return the number of hard links to this file.  This is not to be
      * confused with symbolic links.
-     * <p>
+     * 
      * @return The number of hard links to this file.
      ***/
     public int getHardLinkCount()
@@ -252,7 +267,7 @@ public class FTPFile implements Serializable {
     /***
      * Set the name of the group owning the file.  This may be
      * a string representation of the group number.
-     * <p>
+     * 
      * @param group The name of the group owning the file.
      ***/
     public void setGroup(String group)
@@ -264,7 +279,7 @@ public class FTPFile implements Serializable {
     /***
      * Returns the name of the group owning the file.  Sometimes this will be
      * a string representation of the group number.
-     * <p>
+     * 
      * @return The name of the group owning the file.
      ***/
     public String getGroup()
@@ -276,7 +291,7 @@ public class FTPFile implements Serializable {
     /***
      * Set the name of the user owning the file.  This may be
      * a string representation of the user number;
-     * <p>
+     * 
      * @param user The name of the user owning the file.
      ***/
     public void setUser(String user)
@@ -287,7 +302,7 @@ public class FTPFile implements Serializable {
     /***
      * Returns the name of the user owning the file.  Sometimes this will be
      * a string representation of the user number.
-     * <p>
+     * 
      * @return The name of the user owning the file.
      ***/
     public String getUser()
@@ -299,7 +314,7 @@ public class FTPFile implements Serializable {
     /***
      * If the FTPFile is a symbolic link, use this method to set the name of the
      * file being pointed to by the symbolic link.
-     * <p>
+     * 
      * @param link  The file pointed to by the symbolic link.
      ***/
     public void setLink(String link)
@@ -311,7 +326,7 @@ public class FTPFile implements Serializable {
     /***
      * If the FTPFile is a symbolic link, this method returns the name of the
      * file being pointed to by the symbolic link.  Otherwise it returns null.
-     * <p>
+     * 
      * @return The file pointed to by the symbolic link (null if the FTPFile
      *         is not a symbolic link).
      ***/
@@ -325,7 +340,7 @@ public class FTPFile implements Serializable {
      * Set the file timestamp.  This usually the last modification time.
      * The parameter is not cloned, so do not alter its value after calling
      * this method.
-     * <p>
+     * 
      * @param date A Calendar instance representing the file timestamp.
      ***/
     public void setTimestamp(Calendar date)
@@ -336,7 +351,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Returns the file timestamp.  This usually the last modification time.
-     * <p>
+     * 
      * @return A Calendar instance representing the file timestamp.
      ***/
     public Calendar getTimestamp()
@@ -347,7 +362,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Set the given permission for the specified access group.
-     * <p>
+     * 
      * @param access The access group (An {@link Access} instance)
      * @param permission The access permission (A {@link Permission} instance)
      * TODO do we need a removePerm?
@@ -356,8 +371,6 @@ public class FTPFile implements Serializable {
     public void setPermission(Access access, Permission permission)
     {
         EnumSet<Permission> perms = permissions.get(access);
-        if (perms == null)
-        	perms = EnumSet.noneOf(Permission.class);
         perms.add(permission);
         permissions.put(access, perms);
     }
@@ -365,7 +378,7 @@ public class FTPFile implements Serializable {
 
     /***
      * Determines if the given access group has the given access permission.
-     * <p>
+     * 
      * @param access The access group (An {@link Access} instance)
      * @param permission A {@link Permission} instance
      ***/
@@ -383,7 +396,7 @@ public class FTPFile implements Serializable {
      * Returns a string representation of the FTPFile information.  This
      * will be the raw FTP server listing that was used to initialize the
      * FTPFile instance.
-     * <p>
+     * 
      * @return A string representation of the FTPFile information.
      ***/
     @Override
@@ -398,7 +411,18 @@ public class FTPFile implements Serializable {
      * @return
      */
     public String getPermissionsString() {
-    	return null;
+    	final StringBuilder buf= new StringBuilder();
+    	// Rely on the natural ordering of EnumMap iterators
+    	for (final Entry<Access, EnumSet<Permission>> access : permissions.entrySet()) {
+    		final EnumSet<Permission> permSet = access.getValue();
+    		for (Permission permission : Permission.values()) {
+    			if (permSet.contains(permission))
+    				buf.append(permission);
+    			else
+    				buf.append("-");
+    		}
+    	}
+    	return buf.toString();
     }
 
 }

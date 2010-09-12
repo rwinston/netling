@@ -8,7 +8,7 @@ Using The FTP Client
 
 * Listing Files
 
- The <<listFiles()>> method returns a directory listing of files in the current directory on the remote server.
+ The <<<listFiles()>>> method returns a directory listing of files in the current directory on the remote server.
 
 * Retrieving a File
 
@@ -20,26 +20,31 @@ Using The FTP Client
 
 %{code-snippet|id=filedownload1|brush=java|file=src/site/snippet/ftp.java}
 
- The second method returns an <<<InputStream>>>, which must also be explicitly closed when the file transfer is completed. This method requires that you call <<<completePendingCommand()>>> when the file transfer is complete (in order to consume the server response status).
+ The third method returns an <<<InputStream>>>, which must also be explicitly closed when the file transfer is completed. This method requires that you call <<<completePendingCommand()>>> when the file transfer is complete (in order to consume the server response status).
 
 %{code-snippet|id=filedownload2|brush=java|file=src/site/snippet/ftp.java}
 
 * Setting file transfer mode
 
-In order to explicitly set ASCII or binary file type on the file download, use <<setFileType()>>.
+ In order to explicitly set ASCII or binary file type on the file download, use <<<setFileType()>>>.
+
+%{code-snippet|id=filetype|brush=java|file=src/site/snippet/ftp.java}
 
 * Storing a File
 
+ The easiest way to store a file is to use the <<<upload()>>> command:
+
+%{code-snippet|id=fileupload0|brush=java|file=src/site/snippet/ftp.java}
+
+ As per the file download commands, the <<<FTPClient>>> class provides some lower-level methods for file uploading. See the <<<storeFile()>>> method for an example.
 
 * Setting the character set encoding 
 
-  The <<FTPClient>> class supports setting arbitrary character set encoding for the control connection. ALthough historically FTP servers have supported ASCII character sets only, an FTP server that implements RFC 2640 supports UTF8 (and will make this known via the <<FEAT>> command).
+  The <<<FTPClient>>> class supports setting arbitrary character set encoding for the control connection. ALthough historically FTP servers have supported ASCII character sets only, an FTP server that implements RFC 2640 supports UTF8 (and will make this known via the <<<FEAT>>> command).
  
  To set the control encoding to UTF-8, use:
  
- <<client.setControlEncoding("UTF8");>>
-
-* 
+%{code-snippet|id=encoding|brush=java|file=src/site/snippet/ftp.java}
 
 
 

@@ -44,11 +44,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import org.junit.Test;
-<<<<<<< HEAD
-import org.netling.MalformedServerReplyException;
 import org.netling.ftp.FTP.FileType;
-=======
->>>>>>> 059609572b530ecd0a3de6d5d5ed5da7ab8c88e3
+
 
 
 public class FTPClientTest {

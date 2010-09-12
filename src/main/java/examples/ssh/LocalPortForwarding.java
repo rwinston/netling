@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Shikhar Bhushan
+ * Copyright 2010 netling project <http://netling.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package examples;
+package examples.ssh;
 
 import org.netling.ssh.SSHClient;
 
@@ -24,7 +24,7 @@ import java.net.InetSocketAddress;
  * This example demonstrates local port forwarding, i.e. when we listen on a particular address and port; and forward
  * all incoming connections to SSH server which further forwards them to a specified address and port.
  */
-public class LocalPF {
+public class LocalPortForwarding {
 
     public static void main(String... args)
             throws IOException {

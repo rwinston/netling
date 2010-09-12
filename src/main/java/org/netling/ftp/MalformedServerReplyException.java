@@ -33,28 +33,33 @@
  *      specific language governing permissions and limitations
  *      under the License.
  */
-package org.netling.ssh.transport.cipher;
+package org.netling.ftp;
 
-/** {@code aes256-ctr} cipher */
-public class AES256CBC
-        extends BaseCipher {
+import java.io.IOException;
 
-    /** Named factory for AES256CBC Cipher */
-    public static class Factory
-            implements org.netling.ssh.common.Factory.Named<Cipher> {
-        @Override
-        public Cipher create() {
-            return new AES256CBC();
-        }
+/**
+ * This exception is used to indicate that the reply from a server could not be interpreted.  The FTP component attempts
+ * to be as lenient as possible when receiving server replies.  Many server implementations deviate from IETF protocol
+ * specifications, making it necessary to be as flexible as possible. However, there will be certain situations where
+ * it is not possible to continue an operation because the server reply could not be interpreted in a meaningful manner.
+ * In these cases, a MalformedServerReplyException is thrown.
+ */
+public class MalformedServerReplyException extends IOException {
 
-        @Override
-        public String getName() {
-            return "aes256-cbc";
-        }
+	/*** Constructs a MalformedServerReplyException with no message ***/
+    public MalformedServerReplyException()
+    {
+        super();
     }
 
-    public AES256CBC() {
-        super(16, 32, "AES", "AES/CBC/NoPadding");
+    /***
+     * Constructs a MalformedServerReplyException with a specified message.
+     *
+     * @param message  The message explaining the reason for the exception.
+     ***/
+    public MalformedServerReplyException(String message)
+    {
+        super(message);
     }
 
 }

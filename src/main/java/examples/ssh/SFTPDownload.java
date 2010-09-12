@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Shikhar Bhushan
+ * Copyright 2010 netling project <http://netling.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,35 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package examples;
+package examples.ssh;
 
-import org.netling.scp.SCPFileTransfer;
 import org.netling.ssh.SSHClient;
+import org.netling.sftp.SFTPClient;
 
-import java.io.File;
 import java.io.IOException;
 
-/** This example demonstrates uploading of a file over SCP to the SSH server. */
-public class SCPUpload {
+/** This example demonstrates downloading of a file over SFTP from the SSH server. */
+public class SFTPDownload {
 
     public static void main(String[] args)
-            throws IOException, ClassNotFoundException {
-        SSHClient ssh = new SSHClient();
+            throws IOException {
+        final SSHClient ssh = new SSHClient();
         ssh.loadKnownHosts();
         ssh.connect("localhost");
         try {
             ssh.authPublickey(System.getProperty("user.name"));
-
-            // Present here to demo algorithm renegotiation - could have just put this before connect()
-            // Make sure JZlib is in classpath for this to work
-            ssh.useCompression();
-
-            final String src = System.getProperty("user.home") + File.separator + "test_file";
+            final String src = "test_file";
             final String target = "/tmp/";
-            final SCPFileTransfer xfer = new SCPFileTransfer(ssh);
-            xfer.upload(src, target);
+
+            final SFTPClient sftp = new SFTPClient(ssh);
+            try {
+                sftp.get(src, target);
+            } finally {
+                sftp.close();
+            }
+
         } finally {
             ssh.disconnect();
         }
     }
+
 }

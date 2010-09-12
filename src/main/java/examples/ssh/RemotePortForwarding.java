@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Shikhar Bhushan
+ * Copyright 2010 netling project <http://netling.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package examples;
+package examples.ssh;
 
 import org.netling.ssh.SSHClient;
 import org.netling.ssh.connection.channel.forwarded.RemotePortForwarder.Forward;
@@ -26,7 +26,7 @@ import java.net.InetSocketAddress;
  * This example demonstrates remote port forwarding i.e. when the remote host is made to listen on a specific address
  * and port; and forwards us incoming connections.
  */
-public class RemotePF {
+public class RemotePortForwarding {
 
     public static void main(String... args)
             throws IOException {

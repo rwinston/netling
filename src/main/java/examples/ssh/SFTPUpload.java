@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Shikhar Bhushan
+ * Copyright 2010 netling project <http://netling.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,34 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package examples;
+package examples.ssh;
 
 import org.netling.ssh.SSHClient;
-import org.netling.ssh.connection.channel.direct.Session;
-import org.netling.ssh.connection.channel.direct.Session.Command;
+import org.netling.sftp.SFTPClient;
 
+import java.io.File;
 import java.io.IOException;
 
-/** This examples demonstrates how a remote command can be executed. */
-public class Exec {
+/** This example demonstrates uploading of a file over SFTP to the SSH server. */
+public class SFTPUpload {
 
-    public static void main(String... args)
+    public static void main(String[] args)
             throws IOException {
         final SSHClient ssh = new SSHClient();
         ssh.loadKnownHosts();
-
         ssh.connect("localhost");
         try {
             ssh.authPublickey(System.getProperty("user.name"));
-            final Session session = ssh.startSession();
+            final String src = System.getProperty("user.home") + File.separator + "test_file";
+            final String target = "/tmp/";
+            final SFTPClient sftp = new SFTPClient(ssh);
             try {
-                final Command cmd = session.exec("ping -c 1 google.com");
-                System.out.print(cmd.getOutputAsString());
-                System.out.println("\n** exit status: " + cmd.getExitStatus());
+                sftp.put(src, target);
             } finally {
-                session.close();
+                sftp.close();
             }
-
         } finally {
             ssh.disconnect();
         }

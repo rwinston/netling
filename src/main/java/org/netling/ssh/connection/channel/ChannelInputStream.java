@@ -162,8 +162,8 @@ public final class ChannelInputStream
             final int adjustment = win.neededAdjustment();
             if (adjustment > 0) {
                 log.info("Sending SSH_MSG_CHANNEL_WINDOW_ADJUST to #{} for {} bytes", chan.getRecipient(), adjustment);
-                trans.write(new SSHPacket(Message.CHANNEL_WINDOW_ADJUST)
-                        .putInt(chan.getRecipient()).putInt(adjustment));
+                final SSHPacket packet = new SSHPacket(Message.CHANNEL_WINDOW_ADJUST);
+                trans.write(packet.putInt(chan.getRecipient()).putInt(adjustment));
                 win.expand(adjustment);
             }
         }

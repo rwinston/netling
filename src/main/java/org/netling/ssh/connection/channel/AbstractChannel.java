@@ -60,6 +60,13 @@ import java.util.concurrent.locks.ReentrantLock;
 public abstract class AbstractChannel
         implements Channel {
 
+    protected class ChannelEvent
+            extends Event<ConnectionException> {
+        public ChannelEvent(String name) {
+            super(name, ConnectionException.chainer, lock);
+        }
+    }
+
     /** Logger */
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -75,14 +82,14 @@ public abstract class AbstractChannel
     /** Remote recipient ID */
     private int recipient;
 
-    private final Queue<Event<ConnectionException>> chanReqResponseEvents = new LinkedList<Event<ConnectionException>>();
+    private final Queue<ChannelEvent> chanReqResponseEvents = new LinkedList<ChannelEvent>();
 
     /* The lock used by to create the open & close events */
     private final ReentrantLock lock = new ReentrantLock();
     /** Channel open event */
-    protected final Event<ConnectionException> open;
+    protected final ChannelEvent open;
     /** Channel close event */
-    protected final Event<ConnectionException> close;
+    protected final ChannelEvent close;
 
     /* Access to these fields should be synchronized using this object */
     private boolean eofSent;
@@ -107,12 +114,11 @@ public abstract class AbstractChannel
         this.trans = conn.getTransport();
 
         id = conn.nextID();
+        open = new ChannelEvent("chan#" + id + " / " + "open");
+        close = new ChannelEvent("chan#" + id + " / " + "close");
 
         lwin = new Window.Local(conn.getWindowSize(), conn.getMaxPacketSize());
         in = new ChannelInputStream(this, trans, lwin);
-
-        open = new Event<ConnectionException>("chan#" + id + " / " + "open", ConnectionException.chainer, lock);
-        close = new Event<ConnectionException>("chan#" + id + " / " + "close", ConnectionException.chainer, lock);
     }
 
     protected void init(int recipient, int remoteWinSize, int remoteMaxPacketSize) {
@@ -340,8 +346,8 @@ public abstract class AbstractChannel
         stream.receive(buf.array(), buf.rpos(), len);
     }
 
-    protected synchronized Event<ConnectionException> sendChannelRequest(String reqType, boolean wantReply,
-                                                                         Buffer.PlainBuffer reqSpecific)
+    protected synchronized ChannelEvent sendChannelRequest(String reqType, boolean wantReply,
+                                                           Buffer.PlainBuffer reqSpecific)
             throws TransportException {
         log.info("Sending channel request for `{}`", reqType);
         trans.write(
@@ -351,9 +357,9 @@ public abstract class AbstractChannel
                         .putBuffer(reqSpecific)
         );
 
-        Event<ConnectionException> responseEvent = null;
+        ChannelEvent responseEvent = null;
         if (wantReply) {
-            responseEvent = new Event<ConnectionException>("chan#" + id + " / " + "chanreq for " + reqType, ConnectionException.chainer, lock);
+            responseEvent = new ChannelEvent("chan#" + id + " / " + "chanreq for " + reqType);
             chanReqResponseEvents.add(responseEvent);
         }
         return responseEvent;
@@ -361,7 +367,7 @@ public abstract class AbstractChannel
 
     private synchronized void gotResponse(boolean success)
             throws ConnectionException {
-        final Event<ConnectionException> responseEvent = chanReqResponseEvents.poll();
+        final ChannelEvent responseEvent = chanReqResponseEvents.poll();
         if (responseEvent != null) {
             if (success)
                 responseEvent.set();

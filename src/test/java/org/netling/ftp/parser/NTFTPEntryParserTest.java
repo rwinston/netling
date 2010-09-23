@@ -56,6 +56,8 @@ public class NTFTPEntryParserTest extends CompositeFTPParseTestFramework
             "12-03-96  06:38AM       <DIR>          123xyz",
             "01-20-97  03:48PM       <DIR>          bin",
             "05-26-1995  10:57AM               143712 $LDR$",
+            "12-05-96  17:03         <DIR>          absoft2", 
+            "05-22-97  08:08                    828 AUTOEXEC.BAK",
     },
     {
             "-rw-r--r--   1 root     root       111325 Apr 27  2001 zxJDBC-2.0.1b1.tar.gz",
@@ -144,7 +146,8 @@ public class NTFTPEntryParserTest extends CompositeFTPParseTestFramework
                    dir.isDirectory());
         assertEquals("absoft2", dir.getName());
         assertEquals(0, dir.getSize());
-
+        
+      
         dir = getParser().parseFTPEntry("12-03-96  06:38AM       <DIR>          123456");
         assertNotNull("Could not parse entry.", dir);
         assertTrue("Should have been a directory.",
@@ -160,9 +163,17 @@ public class NTFTPEntryParserTest extends CompositeFTPParseTestFramework
             assertEquals("10 years and under", file.getName());
             assertEquals(5000000000L, file.getSize());
             
+            Calendar timestamp = file.getTimestamp();
+            assertNotNull("Could not parse time",timestamp);
+            assertEquals("Thu May 22 00:08:00 1997",df.format(timestamp.getTime()));
+            
             FTPFile dir = getParser().parseFTPEntry("12-03-96  06:38AM       <DIR>           10 years and under");
             assertNotNull("Could not parse entry", dir);
             assertEquals("10 years and under", dir.getName());
+            
+            timestamp = dir.getTimestamp();
+            assertNotNull("Could not parse time",timestamp);
+            assertEquals("Tue Dec 03 06:38:00 1996",df.format(timestamp.getTime()));
     }
 
     /**

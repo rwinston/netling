@@ -42,17 +42,24 @@ public class KeyProviderUtil {
         Util.closeQuietly(br);
         if (firstLine == null)
             throw new IOException("Empty file");
-        if (firstLine.startsWith("-----BEGIN") && firstLine.endsWith("PRIVATE KEY-----"))
+        if (firstLine.startsWith("-----BEGIN") && firstLine.endsWith("PRIVATE KEY-----")) {
             if (new File(location + ".pub").exists())
                 // Can delay asking for password since have unencrypted pubkey
                 return FileKeyProvider.Format.OpenSSH;
             else
                 // More general
                 return FileKeyProvider.Format.PKCS8;
+        }
+        else if (firstLine.startsWith("PuTTY-User-Key-File-2:")) {
+        	return FileKeyProvider.Format.PuTTY;
+        }
         /*
          * TODO: Tectia, PuTTY (.ppk) ...
          */
         return FileKeyProvider.Format.Unknown;
     }
+    
+    
+    
 
 }

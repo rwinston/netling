@@ -26,6 +26,7 @@ public interface FileKeyProvider
     enum Format {
         PKCS8,
         OpenSSH,
+        PuTTY,
         Unknown
     }
 

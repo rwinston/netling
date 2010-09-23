@@ -119,5 +119,4 @@ public class OpenSSHKeyFileTest {
         if (!SecurityUtils.isBouncyCastleRegistered())
             throw new AssertionError("bouncy castle needed");
     }
-
 }

@@ -19,7 +19,7 @@ import org.netling.ssh.userauth.password.PasswordFinder;
 
 import java.io.File;
 
-/** A file key provider is initialized with a location of */
+/** A file key provider is a {@link KeyProvider} that is initialized with the location of a key file. */
 public interface FileKeyProvider
         extends KeyProvider {
 

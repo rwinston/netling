@@ -42,6 +42,13 @@ public class ConnectionImpl
         extends AbstractService
         implements Connection {
 
+    public static final class GlobalRequestResult
+            extends Future<SSHPacket, ConnectionException> {
+        public GlobalRequestResult(String name) {
+            super(name, ConnectionException.chainer);
+        }
+    }
+
     private final Object internalSynchronizer = new Object();
 
     private final AtomicInteger nextID = new AtomicInteger();
@@ -50,7 +57,7 @@ public class ConnectionImpl
 
     private final Map<String, ForwardedChannelOpener> openers = new ConcurrentHashMap<String, ForwardedChannelOpener>();
 
-    private final Queue<Future<SSHPacket, ConnectionException>> globalReqFutures = new LinkedList<Future<SSHPacket, ConnectionException>>();
+    private final Queue<GlobalRequestResult> globalReqFutures = new LinkedList<GlobalRequestResult>();
 
     private int windowSize = 2048 * 1024;
     private int maxPacketSize = 32 * 1024;
@@ -111,7 +118,7 @@ public class ConnectionImpl
         else {
             buffer.rpos(buffer.rpos() - 5);
             throw new ConnectionException(DisconnectReason.PROTOCOL_ERROR, "Received " + buffer.readMessageID()
-                                                                           + " on unknown channel #" + recipient);
+                    + " on unknown channel #" + recipient);
         }
     }
 
@@ -193,17 +200,16 @@ public class ConnectionImpl
     }
 
     @Override
-    public Future<SSHPacket, ConnectionException> sendGlobalRequest(String name, boolean wantReply,
-                                                                    byte[] specifics)
+    public GlobalRequestResult sendGlobalRequest(String name, boolean wantReply, byte[] specifics)
             throws TransportException {
         synchronized (globalReqFutures) {
             log.info("Making global request for `{}`", name);
             trans.write(new SSHPacket(Message.GLOBAL_REQUEST).putString(name)
                     .putBoolean(wantReply).putRawBytes(specifics));
 
-            Future<SSHPacket, ConnectionException> future = null;
+            GlobalRequestResult future = null;
             if (wantReply) {
-                future = new Future<SSHPacket, ConnectionException>("global req for " + name, ConnectionException.chainer);
+                future = new GlobalRequestResult("global req for " + name);
                 globalReqFutures.add(future);
             }
             return future;
@@ -213,10 +219,10 @@ public class ConnectionImpl
     private void gotGlobalReqResponse(SSHPacket response)
             throws ConnectionException {
         synchronized (globalReqFutures) {
-            Future<SSHPacket, ConnectionException> gr = globalReqFutures.poll();
+            final GlobalRequestResult gr = globalReqFutures.poll();
             if (gr == null)
                 throw new ConnectionException(DisconnectReason.PROTOCOL_ERROR,
-                                              "Got a global request response when none was requested");
+                        "Got a global request response when none was requested");
             else if (response == null)
                 gr.error(new ConnectionException("Global request [" + gr + "] failed"));
             else

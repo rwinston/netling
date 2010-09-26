@@ -239,13 +239,9 @@ public class FTPSClient extends FTPClient {
 				context = SSLContext.getInstance(protocol);
 				context.init(new KeyManager[] { getKeyManager() } , new TrustManager[] { getTrustManager() } , null);
 			} catch (KeyManagementException e) {
-				IOException ioe = new IOException("Could not initialize SSL context");
-				ioe.initCause(e);
-				throw ioe;
+				throw new IOException("Could not initialize SSL context", e);
 			} catch (NoSuchAlgorithmException e) {
-				IOException ioe = new IOException("Could not initialize SSL context");
-				ioe.initCause(e);
-				throw ioe;
+				throw new IOException("Could not initialize SSL context", e);
 			}
 		}
 	}

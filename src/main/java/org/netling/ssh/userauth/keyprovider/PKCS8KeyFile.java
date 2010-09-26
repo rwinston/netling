@@ -79,13 +79,13 @@ public class PKCS8KeyFile
 
     @Override
     public void init(File location) {
-        assert location != null;
-        resource = new PrivateKeyFileResource(location.getAbsoluteFile());
+        init(location, null);
     }
 
     @Override
     public void init(File location, PasswordFinder pwdf) {
         init(location);
+        resource = new PrivateKeyFileResource(location.getAbsoluteFile());
         this.pwdf = pwdf;
     }
 

@@ -60,7 +60,7 @@ public class OpenSSHKeyFile
     @Override
     public void init(File location) {
         final File f = new File(location + ".pub");
-        if (f.exists())
+        if (f.exists()) {
             try {
                 final BufferedReader br = new BufferedReader(new FileReader(f));
                 try {
@@ -78,6 +78,7 @@ public class OpenSSHKeyFile
                 // let super provide both public & private key
                 log.warn("Error reading public key file: {}", e.toString());
             }
+        }
         super.init(location);
     }
 

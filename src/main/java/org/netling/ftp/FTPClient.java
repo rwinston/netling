@@ -984,7 +984,7 @@ implements Configurable {
 
     /***
      * Set the current data connection mode to
-     * <code> PASSIVE_REMOTE_DATA_CONNECTION_MODE </code>.  Use this
+     * <code> PASSIVE_REMOTE </code>.  Use this
      * method only for server to server data transfers.
      * This method issues a PASV command to the server, telling it to
      * open a data port to which the active server will connect to conduct
@@ -1408,7 +1408,7 @@ implements Configurable {
     {
     	if (dataConnectionMode == ConnectionMode.ACTIVE_REMOTE ||
                 dataConnectionMode == ConnectionMode.PASSIVE_REMOTE)
-            return FTPReply.isPositivePreliminary(stor(filename));
+            return FTPReply.isPositivePreliminary(appe(filename));
         return false;
     }
 

@@ -30,6 +30,13 @@
         </license>
     </licenses>
 
+	<distributionManagement>
+		<site>
+			<id>netling.org</id>
+			<url>scp://www.netling.org/netling.org/</url>
+		</site>
+	</distributionManagement>
+
     <developers>
         <developer>
             <name>Rory Winston</name>
@@ -100,6 +107,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+		<version>2.3.2</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -112,18 +120,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*FunctionalTest.java</exclude>
-                        <exclude>**/*POP3*.java</exclude>
-                        <exclude>**/TestSetupParameters.java</exclude>
-                    </excludes>
-                </configuration>
+		<version>2.7.2</version>
             </plugin>
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-		<version>2.2-beta-5</version>
+		<version>2.2</version>
                 <configuration>
                     <descriptors>
                         <descriptor>src/assembly/bin.xml</descriptor>
@@ -136,7 +138,7 @@
 	<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>2.1.1</version>
+	<version>3.0-beta-3</version>
 	<configuration>
           <templateFile>${basedir}/src/site/site.vm</templateFile>
         </configuration>
@@ -146,6 +148,8 @@
           <groupId>com.anasoft.os</groupId>
           <artifactId>m2st-doxia-macros</artifactId>
           <version>2.0</version>
+	  <scope>system</scope>
+	  <systemPath>${basedir}/lib/m2st-doxia-macros-2.0.jar</systemPath>
         </dependency>
       </dependencies>
 
@@ -197,10 +201,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.1.1</version>
+        <version>2.3.1</version>
       </plugin>
     </plugins>
   </reporting>
-
 
 </project>

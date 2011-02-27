@@ -36,6 +36,14 @@ div.clear hr{
 .xleft, #bannerLeft img {
   float:left;
 }
+
+#bannerLeft {
+background-image:url('../images/netling.png');
+background-repeat: no-repeat;
+padding-top: 50px;
+}
+
+
 .xright, #bannerRight {
   float:right;
 }
@@ -190,12 +198,13 @@ a.newWindow, a.newWindow:link, a.newWindow:visited, a.newWindow:active, a.newWin
 }
 
 h2{
-background-color:#EEEEFF;
-border:1px dashed #0000bb;
+background-color:#ffffff;
+/* border:1px dashed #0000bb; */
+border: none;
 color:#0000AA;
 font-size:x-large;
 font-weight:900;
-padding:4px 4px 4px 6px;
+padding: none;
 }
 
 h3 {

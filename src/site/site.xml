@@ -16,23 +16,16 @@
     -->
 
     <project name="netling">
-
-
         <body>
             <menu name="Documentation">
                 <item name="Getting Started"	href="gettingstarted.html"/>
-                <item name="Release Notes"         href="changes-report.html"/>
                 <item name="Issue Tracking"        href="issue-tracking.html"/>
-            </menu>
-            <menu name="Development">
-                <item name="Coding Specifications" href="code-standards.html"/>
             </menu>
 	    <menu name="Guides">
 		<item name="FTP" href="ftp.html"/>
 		<item name="FTPS" href="ftps.html"/>
+		<item name="SSH" href="ssh.html"/>
 	    </menu>
             <menu ref="reports"/> 
-
         </body>
-
     </project>

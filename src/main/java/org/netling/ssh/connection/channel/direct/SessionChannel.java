@@ -51,190 +51,208 @@ import java.util.concurrent.TimeUnit;
 
 /** {@link Session} implementation. */
 public class
-        SessionChannel
-        extends AbstractDirectChannel
-        implements Session, Session.Command, Session.Shell, Session.Subsystem {
+SessionChannel
+extends AbstractDirectChannel
+implements Session, Session.Command, Session.Shell, Session.Subsystem {
 
-    private final ChannelInputStream err = new ChannelInputStream(this, trans, lwin);
+	private final ChannelInputStream err = new ChannelInputStream(this, trans, lwin);
 
-    private Integer exitStatus;
+	private Integer exitStatus;
 
-    private Signal exitSignal;
-    private Boolean wasCoreDumped;
-    private String exitErrMsg;
+	private Signal exitSignal;
+	private Boolean wasCoreDumped;
+	private String exitErrMsg;
 
-    private Boolean canDoFlowControl;
+	private Boolean canDoFlowControl;
 
-    public SessionChannel(Connection conn) {
-        super(conn, "session");
-    }
+	private boolean usedUp;
 
-    @Override
-    public void allocateDefaultPTY()
-            throws ConnectionException, TransportException {
-        allocatePTY("vt100", 80, 24, 0, 0, Collections.<PTYMode, Integer>emptyMap());
-    }
+	public SessionChannel(Connection conn) {
+		super(conn, "session");
+	}
 
-    @Override
-    public void allocatePTY(String term, int cols, int rows, int width, int height, Map<PTYMode, Integer> modes)
-            throws ConnectionException, TransportException {
-        sendChannelRequest(
-                "pty-req",
-                true,
-                new Buffer.PlainBuffer()
-                        .putString(term)
-                        .putInt(cols)
-                        .putInt(rows)
-                        .putInt(width)
-                        .putInt(height)
-                        .putBytes(PTYMode.encode(modes))
-        ).await(conn.getTimeout(), TimeUnit.SECONDS);
-    }
+	@Override
+		public void allocateDefaultPTY()
+		throws ConnectionException, TransportException {
+			allocatePTY("vt100", 80, 24, 0, 0, Collections.<PTYMode, Integer>emptyMap());
+		}
 
-    @Override
-    public Boolean canDoFlowControl() {
-        return canDoFlowControl;
-    }
+	@Override
+		public void allocatePTY(String term, int cols, int rows, int width, int height, Map<PTYMode, Integer> modes)
+		throws ConnectionException, TransportException {
+			sendChannelRequest(
+					"pty-req",
+					true,
+					new Buffer.PlainBuffer()
+					.putString(term)
+					.putInt(cols)
+					.putInt(rows)
+					.putInt(width)
+					.putInt(height)
+					.putBytes(PTYMode.encode(modes))
+					).await(conn.getTimeout(), TimeUnit.SECONDS);
+		}
 
-    @Override
-    public void changeWindowDimensions(int cols, int rows, int width, int height)
-            throws TransportException {
-        sendChannelRequest(
-                "pty-req",
-                false,
-                new Buffer.PlainBuffer()
-                        .putInt(cols)
-                        .putInt(rows)
-                        .putInt(width)
-                        .putInt(height)
-        );
-    }
+	@Override
+		public Boolean canDoFlowControl() {
+			return canDoFlowControl;
+		}
 
-    @Override
-    public Command exec(String command)
-            throws ConnectionException, TransportException {
-        log.info("Will request to exec `{}`", command);
-        sendChannelRequest("exec", true, new Buffer.PlainBuffer().putString(command))
-                .await(conn.getTimeout(), TimeUnit.SECONDS);
-        return this;
-    }
+	@Override
+		public void changeWindowDimensions(int cols, int rows, int width, int height)
+		throws TransportException {
+			sendChannelRequest(
+					"pty-req",
+					false,
+					new Buffer.PlainBuffer()
+					.putInt(cols)
+					.putInt(rows)
+					.putInt(width)
+					.putInt(height)
+					);
+		}
 
-    @Override
-    public String getErrorAsString()
-            throws IOException {
-        return StreamCopier.copyStreamToString(err);
-    }
+	@Override
+		public Command exec(String command)
+		throws ConnectionException, TransportException {
+			checkReuse();
+			log.info("Will request to exec `{}`", command);
+			sendChannelRequest("exec", true, new Buffer.PlainBuffer().putString(command))
+				.await(conn.getTimeout(), TimeUnit.SECONDS);
+			usedUp = true;
+			return this;
+		}
 
-    @Override
-    public InputStream getErrorStream() {
-        return err;
-    }
+	@Override
+		public String getErrorAsString()
+		throws IOException {
+			return StreamCopier.copyStreamToString(err);
+		}
 
-    @Override
-    public String getExitErrorMessage() {
-        return exitErrMsg;
-    }
+	@Override
+		public InputStream getErrorStream() {
+			return err;
+		}
 
-    @Override
-    public Signal getExitSignal() {
-        return exitSignal;
-    }
+	@Override
+		public String getExitErrorMessage() {
+			return exitErrMsg;
+		}
 
-    @Override
-    public Integer getExitStatus() {
-        return exitStatus;
-    }
+	@Override
+		public Signal getExitSignal() {
+			return exitSignal;
+		}
 
-    @Override
-    public String getOutputAsString()
-            throws IOException {
-        return StreamCopier.copyStreamToString(getInputStream());
-    }
+	@Override
+		public Integer getExitStatus() {
+			return exitStatus;
+		}
 
-    @Override
-    public void handleRequest(String req, SSHPacket buf)
-            throws ConnectionException, TransportException {
-        if ("xon-xoff".equals(req))
-            canDoFlowControl = buf.readBoolean();
-        else if ("exit-status".equals(req))
-            exitStatus = buf.readInt();
-        else if ("exit-signal".equals(req)) {
-            exitSignal = Signal.fromString(buf.readString());
-            wasCoreDumped = buf.readBoolean(); // core dumped
-            exitErrMsg = buf.readString();
-            sendClose();
-        } else
-            super.handleRequest(req, buf);
-    }
+	@Override
+		public String getOutputAsString()
+		throws IOException {
+			return StreamCopier.copyStreamToString(getInputStream());
+		}
 
-    @Override
-    public void reqX11Forwarding(String authProto, String authCookie, int screen)
-            throws ConnectionException,
-                   TransportException {
-        sendChannelRequest(
-                "x11-req",
-                true,
-                new Buffer.PlainBuffer()
-                        .putBoolean(false)
-                        .putString(authProto)
-                        .putString(authCookie)
-                        .putInt(screen)
-        ).await(conn.getTimeout(), TimeUnit.SECONDS);
-    }
+	@Override
+		public void handleRequest(String req, SSHPacket buf)
+		throws ConnectionException, TransportException {
+			if ("xon-xoff".equals(req))
+				canDoFlowControl = buf.readBoolean();
+			else if ("exit-status".equals(req))
+				exitStatus = buf.readInt();
+			else if ("exit-signal".equals(req)) {
+				exitSignal = Signal.fromString(buf.readString());
+				wasCoreDumped = buf.readBoolean(); // core dumped
+				exitErrMsg = buf.readString();
+				sendClose();
+			} else
+				super.handleRequest(req, buf);
+		}
 
-    @Override
-    public void setEnvVar(String name, String value)
-            throws ConnectionException, TransportException {
-        sendChannelRequest("env", true, new Buffer.PlainBuffer().putString(name).putString(value))
-                .await(conn.getTimeout(), TimeUnit.SECONDS);
-    }
+	@Override
+		public void reqX11Forwarding(String authProto, String authCookie, int screen)
+		throws ConnectionException,
+		       TransportException {
+			       sendChannelRequest(
+					       "x11-req",
+					       true,
+					       new Buffer.PlainBuffer()
+					       .putBoolean(false)
+					       .putString(authProto)
+					       .putString(authCookie)
+					       .putInt(screen)
+					       ).await(conn.getTimeout(), TimeUnit.SECONDS);
+		       }
 
-    @Override
-    public void signal(Signal sig)
-            throws TransportException {
-        sendChannelRequest("signal", false, new Buffer.PlainBuffer().putString(sig.toString()));
-    }
+	@Override
+		public void setEnvVar(String name, String value)
+		throws ConnectionException, TransportException {
+			sendChannelRequest("env", true, new Buffer.PlainBuffer().putString(name).putString(value))
+				.await(conn.getTimeout(), TimeUnit.SECONDS);
+		}
 
-    @Override
-    public Shell startShell()
-            throws ConnectionException, TransportException {
-        sendChannelRequest("shell", true, null).await(conn.getTimeout(), TimeUnit.SECONDS);
-        return this;
-    }
+	@Override
+		public void signal(Signal sig)
+		throws TransportException {
+			sendChannelRequest("signal", false, new Buffer.PlainBuffer().putString(sig.toString()));
+		}
 
-    @Override
-    public Subsystem startSubsystem(String name)
-            throws ConnectionException, TransportException {
-        log.info("Will request `{}` subsystem", name);
-        sendChannelRequest("subsystem", true, new Buffer.PlainBuffer().putString(name))
-                .await(conn.getTimeout(), TimeUnit.SECONDS);
-        return this;
-    }
+	@Override
+		public Shell startShell()
+		throws ConnectionException, TransportException {
+			checkReuse();
+			sendChannelRequest("shell", true, null).await(conn.getTimeout(), TimeUnit.SECONDS);
+			usedUp = true;
+			return this;
+		}
 
-    @Override
-    public Boolean getExitWasCoreDumped() {
-        return wasCoreDumped;
-    }
+	@Override
+		public Subsystem startSubsystem(String name)
+		throws ConnectionException, TransportException {
+			checkReuse();
+			log.info("Will request `{}` subsystem", name);
+			sendChannelRequest("subsystem", true, new Buffer.PlainBuffer().putString(name))
+				.await(conn.getTimeout(), TimeUnit.SECONDS);
+			usedUp = true;
+			return this;
+		}
 
-    @Override
-    protected void closeAllStreams() {
-        org.netling.io.Util.closeQuietly(err);
-        super.closeAllStreams();
-    }
+	@Override
+		public Boolean getExitWasCoreDumped() {
+			return wasCoreDumped;
+		}
 
-    @Override
-    protected void eofInputStreams() {
-        err.eof(); // also close the stderr stream
-        super.eofInputStreams();
-    }
+	@Override
+		protected void closeAllStreams() {
+			org.netling.io.Util.closeQuietly(err);
+			super.closeAllStreams();
+		}
 
-    @Override
-    protected void gotExtendedData(int dataTypeCode, SSHPacket buf)
-            throws ConnectionException, TransportException {
-        if (dataTypeCode == 1)
-            receiveInto(err, buf);
-        else
-            super.gotExtendedData(dataTypeCode, buf);
-    }
+	@Override
+		protected void eofInputStreams() {
+			err.eof(); // also close the stderr stream
+			super.eofInputStreams();
+		}
+
+	@Override
+		protected void gotExtendedData(int dataTypeCode, SSHPacket buf)
+		throws ConnectionException, TransportException {
+			if (dataTypeCode == 1)
+				receiveInto(err, buf);
+			else
+				super.gotExtendedData(dataTypeCode, buf);
+		}
+	
+	public void notifyError(SSHException error) {
+		err.notifyError(error);
+		super.notifyError(error);
+	} 
+
+	private void checkReuse() {
+		if (usedUp)
+			throw new SSHRuntimeException("This session channel is used up");
+	}
 
 }

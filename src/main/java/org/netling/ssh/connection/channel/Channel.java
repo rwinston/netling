@@ -24,6 +24,8 @@ import java.io.Closeable;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import java.util.concurrent.TimeUnit;
+
 /** A channel is the basic medium for application-layer data on top of an SSH transport. */
 public interface Channel
         extends Closeable, SSHPacketHandler, ErrorNotifiable {
@@ -137,5 +139,8 @@ public interface Channel
 
     void join()
             throws ConnectionException;
+
+	void join(int timeout, TimeUnit timeUnit)
+			throws ConnectionException;
 
 }

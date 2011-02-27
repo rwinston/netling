@@ -21,9 +21,6 @@ import java.util.Map;
 
 import org.netling.ssh.connection.ConnectionException;
 import org.netling.ssh.connection.channel.Channel;
-import org.netling.ssh.connection.channel.direct.Session.Command;
-import org.netling.ssh.connection.channel.direct.Session.Shell;
-import org.netling.ssh.connection.channel.direct.Session.Subsystem;
 import org.netling.ssh.transport.TransportException;
 
 /**

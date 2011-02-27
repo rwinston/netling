@@ -318,12 +318,12 @@ implements Configurable {
     private boolean listHiddenFiles;
     private boolean useEPSVwithIPv4; // whether to attempt EPSV with an IPv4 connection
     
-    // __systemName is a cached value that should not be referenced directly
-    // except when assigned in getSystemName and __initDefaults.
+    // systemName is a cached value that should not be referenced directly
+    // except when assigned in getSystemName and initDefaults.
     private String systemName;
 
-    // __entryParser is a cached value that should not be referenced directly
-    // except when assigned in listFiles(String, String) and __initDefaults.
+    // entryParser is a cached value that should not be referenced directly
+    // except when assigned in listFiles(String, String) and initDefaults.
     private FTPFileEntryParser entryParser;
     
     // Key used to create the parser; necessary to ensure that the parser type is not ignored

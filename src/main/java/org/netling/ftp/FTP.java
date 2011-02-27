@@ -451,11 +451,9 @@ public class FTP extends SocketClient
 	 * @exception IOException  If an I/O error occurs while either sending the
 	 *      command or receiving the server reply.
 	 ***/
-	public int sendCommand(String command, String args) throws IOException
-	{
+	public int sendCommand(String command, String args) throws IOException {
 		if (logger.isTraceEnabled())
 			logger.trace("Sending [command={}, args={}]", command, args);
-
 
 		String message;
 
@@ -474,7 +472,8 @@ public class FTP extends SocketClient
 		}
 
 		try{
-			controlOutput.write(message = commandBuffer.toString());
+			final String message = commandBuffer.toString();
+			controlOutput.write(message);
 			controlOutput.flush();
 		}
 		catch (SocketException e)
@@ -633,7 +632,7 @@ public class FTP extends SocketClient
 	 ***/
 	public String[] getReplyStrings()
 	{
-		return replyLines.toArray(new String[0]);
+		return replyLines.toArray(new String[replyLines.size()]);
 	}
 
 	/***

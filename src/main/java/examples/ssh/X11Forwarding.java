@@ -15,14 +15,14 @@
  */
 package examples.ssh;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+
 import org.netling.io.StreamCopier;
 import org.netling.ssh.SSHClient;
 import org.netling.ssh.connection.channel.direct.Session;
 import org.netling.ssh.connection.channel.direct.Session.Command;
 import org.netling.ssh.connection.channel.forwarded.SocketForwardingConnectListener;
-
-import java.io.IOException;
-import java.net.InetSocketAddress;
 
 /** This example demonstrates how forwarding X11Forwarding connections from a remote host can be accomplished. */
 public class X11Forwarding {

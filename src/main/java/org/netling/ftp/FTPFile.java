@@ -35,7 +35,6 @@
  */
 package org.netling.ftp;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.EnumMap;
 import java.util.EnumSet;

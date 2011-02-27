@@ -16,9 +16,9 @@
 package org.netling.sftp;
 
 import org.netling.concurrent.ExceptionChainer;
+import org.netling.sftp.Response.StatusCode;
 import org.netling.ssh.common.DisconnectReason;
 import org.netling.ssh.common.SSHException;
-import org.netling.sftp.Response.StatusCode;
 
 public class SFTPException
         extends SSHException {

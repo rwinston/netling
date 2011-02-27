@@ -35,6 +35,10 @@
  */
 package org.netling.ssh.transport.kex;
 
+import java.math.BigInteger;
+import java.security.GeneralSecurityException;
+import java.security.PublicKey;
+
 import org.netling.ssh.common.Buffer;
 import org.netling.ssh.common.ByteArrayUtils;
 import org.netling.ssh.common.DisconnectReason;
@@ -49,10 +53,6 @@ import org.netling.ssh.transport.digest.Digest;
 import org.netling.ssh.transport.digest.SHA1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.math.BigInteger;
-import java.security.GeneralSecurityException;
-import java.security.PublicKey;
 
 /**
  * Base class for DHG key exchange algorithms. Implementations will only have to configure the required data on the

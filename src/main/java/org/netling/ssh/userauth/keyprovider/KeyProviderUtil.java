@@ -15,12 +15,12 @@
  */
 package org.netling.ssh.userauth.keyprovider;
 
-import org.netling.io.Util;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
+import org.netling.io.Util;
 
 public class KeyProviderUtil {
 

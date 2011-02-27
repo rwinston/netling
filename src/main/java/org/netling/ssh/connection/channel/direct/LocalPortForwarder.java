@@ -15,19 +15,20 @@
  */
 package org.netling.ssh.connection.channel.direct;
 
-import org.netling.io.StreamCopier;
-import org.netling.ssh.common.SSHPacket;
-import org.netling.io.StreamCopier.ErrorCallback;
-import org.netling.ssh.connection.Connection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.net.ServerSocketFactory;
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
+
+import javax.net.ServerSocketFactory;
+
+import org.netling.io.StreamCopier;
+import org.netling.io.StreamCopier.ErrorCallback;
+import org.netling.ssh.common.SSHPacket;
+import org.netling.ssh.connection.Connection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LocalPortForwarder {
 

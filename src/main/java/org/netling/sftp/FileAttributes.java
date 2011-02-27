@@ -15,13 +15,13 @@
  */
 package org.netling.sftp;
 
-import org.netling.ssh.common.Buffer;
-import org.netling.xfer.FilePermission;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import org.netling.ssh.common.Buffer;
+import org.netling.xfer.FilePermission;
 
 public final class FileAttributes {
 

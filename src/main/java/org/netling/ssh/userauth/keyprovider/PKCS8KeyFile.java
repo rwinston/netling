@@ -15,16 +15,6 @@
  */
 package org.netling.ssh.userauth.keyprovider;
 
-import org.netling.io.Util;
-import org.netling.ssh.common.KeyType;
-import org.netling.ssh.userauth.password.PasswordFinder;
-import org.netling.ssh.userauth.password.PasswordUtils;
-import org.netling.ssh.userauth.password.PrivateKeyFileResource;
-import org.bouncycastle.openssl.EncryptionException;
-import org.bouncycastle.openssl.PEMReader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,6 +22,16 @@ import java.io.InputStreamReader;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+
+import org.bouncycastle.openssl.EncryptionException;
+import org.bouncycastle.openssl.PEMReader;
+import org.netling.io.Util;
+import org.netling.ssh.common.KeyType;
+import org.netling.ssh.userauth.password.PasswordFinder;
+import org.netling.ssh.userauth.password.PasswordUtils;
+import org.netling.ssh.userauth.password.PrivateKeyFileResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Represents a PKCS8-encoded key file. This is the format used by OpenSSH and OpenSSL. */
 public class PKCS8KeyFile

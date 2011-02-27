@@ -35,6 +35,13 @@
  */
 package org.netling.ssh.connection.channel;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.netling.concurrent.Event;
 import org.netling.concurrent.FutureUtils;
 import org.netling.ssh.common.Buffer;
@@ -49,13 +56,6 @@ import org.netling.ssh.transport.Transport;
 import org.netling.ssh.transport.TransportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class AbstractChannel
         implements Channel {

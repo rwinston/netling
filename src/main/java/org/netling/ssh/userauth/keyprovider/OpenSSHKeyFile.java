@@ -15,15 +15,15 @@
  */
 package org.netling.ssh.userauth.keyprovider;
 
-import org.netling.util.Base64;
-import org.netling.ssh.common.Buffer;
-import org.netling.ssh.common.KeyType;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.security.PublicKey;
+
+import org.netling.ssh.common.Buffer;
+import org.netling.ssh.common.KeyType;
+import org.netling.util.Base64;
 
 /**
  * Represents an OpenSSH identity that consists of a PKCS8-encoded private key file and an unencrypted public key file

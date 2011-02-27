@@ -15,9 +15,9 @@
  */
 package org.netling.ssh.connection.channel.forwarded;
 
-import org.netling.ssh.connection.channel.Channel;
-
 import java.io.IOException;
+
+import org.netling.ssh.connection.channel.Channel;
 
 /** A connect listener is just that: it listens for new forwarded channels and can be delegated charge of them. */
 public interface ConnectListener {

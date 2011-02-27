@@ -15,15 +15,15 @@
  */
 package examples.ssh;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.netling.io.StreamCopier;
 import org.netling.ssh.SSHClient;
 import org.netling.ssh.connection.channel.direct.Session;
 import org.netling.ssh.connection.channel.direct.Session.Shell;
 import org.netling.ssh.transport.verification.ConsoleKnownHostsVerifier;
 import org.netling.ssh.transport.verification.OpenSSHKnownHosts;
-
-import java.io.File;
-import java.io.IOException;
 
 /** A very rudimentary pseudo-terminal based on console I/O. */
 class RudimentaryPTY {

@@ -15,9 +15,9 @@
  */
 package org.netling.ssh.userauth.method;
 
-import org.netling.ssh.userauth.password.Resource;
-
 import java.util.List;
+
+import org.netling.ssh.userauth.password.Resource;
 
 public interface ChallengeResponseProvider {
 

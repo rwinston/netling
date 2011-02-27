@@ -15,6 +15,13 @@
  */
 package org.netling.ssh.userauth;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
 import org.netling.concurrent.Event;
 import org.netling.ssh.AbstractService;
 import org.netling.ssh.Service;
@@ -25,13 +32,6 @@ import org.netling.ssh.common.SSHPacket;
 import org.netling.ssh.transport.Transport;
 import org.netling.ssh.transport.TransportException;
 import org.netling.ssh.userauth.method.AuthMethod;
-
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /** {@link UserAuth} implementation. */
 public class UserAuthImpl

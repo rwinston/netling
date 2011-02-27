@@ -36,10 +36,10 @@
 
 package org.netling.ssh.transport;
 
+import java.io.InputStream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.InputStream;
 
 public final class Reader
         extends Thread {

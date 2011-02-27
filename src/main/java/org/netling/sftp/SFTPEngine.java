@@ -15,12 +15,6 @@
  */
 package org.netling.sftp;
 
-import org.netling.ssh.common.SSHException;
-import org.netling.ssh.connection.channel.direct.Session.Subsystem;
-import org.netling.ssh.connection.channel.direct.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -29,6 +23,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import org.netling.ssh.common.SSHException;
+import org.netling.ssh.connection.channel.direct.Session.Subsystem;
+import org.netling.ssh.connection.channel.direct.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SFTPEngine
         implements Requester, Closeable {

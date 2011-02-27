@@ -15,13 +15,16 @@
  */
 package org.netling.ssh.connection.channel.direct;
 
-import org.netling.ssh.connection.ConnectionException;
-import org.netling.ssh.connection.channel.Channel;
-import org.netling.ssh.transport.TransportException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+
+import org.netling.ssh.connection.ConnectionException;
+import org.netling.ssh.connection.channel.Channel;
+import org.netling.ssh.connection.channel.direct.Session.Command;
+import org.netling.ssh.connection.channel.direct.Session.Shell;
+import org.netling.ssh.connection.channel.direct.Session.Subsystem;
+import org.netling.ssh.transport.TransportException;
 
 /**
  * A {@code session} channel provides for execution of a remote {@link Command command}, {@link Shell shell} or {@link

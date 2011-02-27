@@ -15,16 +15,16 @@
  */
 package org.netling.ssh.connection.channel.forwarded;
 
+import java.io.Closeable;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.SocketAddress;
+
 import org.netling.io.StreamCopier;
 import org.netling.io.StreamCopier.ErrorCallback;
 import org.netling.ssh.connection.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.Closeable;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.SocketAddress;
 
 /** A {@link ConnectListener} that forwards what is received over the channel to a socket and vice-versa. */
 public class SocketForwardingConnectListener

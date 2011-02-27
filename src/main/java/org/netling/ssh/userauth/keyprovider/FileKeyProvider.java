@@ -15,9 +15,9 @@
  */
 package org.netling.ssh.userauth.keyprovider;
 
-import org.netling.ssh.userauth.password.PasswordFinder;
-
 import java.io.File;
+
+import org.netling.ssh.userauth.password.PasswordFinder;
 
 /** A file key provider is a {@link KeyProvider} that is initialized with the location of a key file. */
 public interface FileKeyProvider

@@ -15,11 +15,11 @@
  */
 package org.netling.scp;
 
+import java.io.IOException;
+
 import org.netling.ssh.connection.channel.direct.SessionFactory;
 import org.netling.xfer.AbstractFileTransfer;
 import org.netling.xfer.FileTransfer;
-
-import java.io.IOException;
 
 public class SCPFileTransfer
         extends AbstractFileTransfer

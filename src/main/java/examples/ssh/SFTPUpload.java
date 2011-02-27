@@ -15,11 +15,11 @@
  */
 package examples.ssh;
 
-import org.netling.ssh.SSHClient;
-import org.netling.sftp.SFTPClient;
-
 import java.io.File;
 import java.io.IOException;
+
+import org.netling.sftp.SFTPClient;
+import org.netling.ssh.SSHClient;
 
 /** This example demonstrates uploading of a file over SFTP to the SSH server. */
 public class SFTPUpload {

@@ -15,18 +15,18 @@
  */
 package org.netling.scp;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.netling.io.Util;
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.connection.channel.direct.SessionFactory;
 import org.netling.xfer.FileTransferUtil;
 import org.netling.xfer.ModeSetter;
 import org.netling.xfer.TransferListener;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 /** Support for uploading files over a connected link using SCP. */
 public final class SCPDownloadClient

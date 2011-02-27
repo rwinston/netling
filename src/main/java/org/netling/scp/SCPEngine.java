@@ -15,6 +15,13 @@
  */
 package org.netling.scp;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 import org.netling.io.Util;
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.connection.channel.direct.Session.Command;
@@ -22,13 +29,6 @@ import org.netling.ssh.connection.channel.direct.SessionFactory;
 import org.netling.xfer.TransferListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 /** @see <a href="http://blogs.sun.com/janp/entry/how_the_scp_protocol_works">SCP Protocol</a> */
 abstract class SCPEngine {

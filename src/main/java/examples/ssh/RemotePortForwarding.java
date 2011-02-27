@@ -15,12 +15,12 @@
  */
 package examples.ssh;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+
 import org.netling.ssh.SSHClient;
 import org.netling.ssh.connection.channel.forwarded.RemotePortForwarder.Forward;
 import org.netling.ssh.connection.channel.forwarded.SocketForwardingConnectListener;
-
-import java.io.IOException;
-import java.net.InetSocketAddress;
 
 /**
  * This example demonstrates remote port forwarding i.e. when the remote host is made to listen on a specific address

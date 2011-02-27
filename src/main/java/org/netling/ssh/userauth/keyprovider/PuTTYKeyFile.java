@@ -15,6 +15,13 @@
  */
 package org.netling.ssh.userauth.keyprovider;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+
 import org.netling.ssh.common.Buffer;
 import org.netling.ssh.common.KeyType;
 import org.netling.ssh.userauth.password.PasswordFinder;
@@ -22,13 +29,6 @@ import org.netling.ssh.userauth.password.PrivateKeyFileResource;
 import org.netling.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 
 /**
  * Source for the following documentation: putty 0.6.0 source / sshpubk.c

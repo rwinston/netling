@@ -35,14 +35,14 @@
  */
 package org.netling.ssh.transport.kex;
 
+import java.security.GeneralSecurityException;
+import java.security.PublicKey;
+
 import org.netling.ssh.common.Message;
 import org.netling.ssh.common.SSHPacket;
 import org.netling.ssh.transport.Transport;
 import org.netling.ssh.transport.TransportException;
 import org.netling.ssh.transport.digest.Digest;
-
-import java.security.GeneralSecurityException;
-import java.security.PublicKey;
 
 /** Key exchange algorithm. */
 public interface KeyExchange {

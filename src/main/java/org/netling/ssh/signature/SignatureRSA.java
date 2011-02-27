@@ -35,10 +35,10 @@
  */
 package org.netling.ssh.signature;
 
+import java.security.SignatureException;
+
 import org.netling.ssh.common.KeyType;
 import org.netling.ssh.common.SSHRuntimeException;
-
-import java.security.SignatureException;
 
 /** RSA {@link Signature} */
 public class SignatureRSA

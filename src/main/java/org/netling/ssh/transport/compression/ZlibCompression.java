@@ -35,12 +35,13 @@
  */
 package org.netling.ssh.transport.compression;
 
-import com.jcraft.jzlib.JZlib;
-import com.jcraft.jzlib.ZStream;
 import org.netling.ssh.common.Buffer;
 import org.netling.ssh.common.DisconnectReason;
 import org.netling.ssh.common.SSHRuntimeException;
 import org.netling.ssh.transport.TransportException;
+
+import com.jcraft.jzlib.JZlib;
+import com.jcraft.jzlib.ZStream;
 
 /** ZLib based Compression. */
 public class ZlibCompression

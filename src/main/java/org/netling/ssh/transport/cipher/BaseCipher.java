@@ -35,13 +35,14 @@
  */
 package org.netling.ssh.transport.cipher;
 
-import org.netling.ssh.common.SSHRuntimeException;
-import org.netling.ssh.common.SecurityUtils;
+import java.security.GeneralSecurityException;
 
 import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.GeneralSecurityException;
+
+import org.netling.ssh.common.SSHRuntimeException;
+import org.netling.ssh.common.SecurityUtils;
 
 /** Base class for all Cipher implementations delegating to the JCE provider. */
 public class BaseCipher

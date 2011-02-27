@@ -35,12 +35,13 @@
  */
 package org.netling.ssh.transport.mac;
 
-import org.netling.ssh.common.SSHRuntimeException;
-import org.netling.ssh.common.SecurityUtils;
+import java.security.GeneralSecurityException;
 
 import javax.crypto.ShortBufferException;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.GeneralSecurityException;
+
+import org.netling.ssh.common.SSHRuntimeException;
+import org.netling.ssh.common.SecurityUtils;
 
 /** Base class for <code>MAC</code> implementations based on the JCE provider. */
 public class BaseMAC

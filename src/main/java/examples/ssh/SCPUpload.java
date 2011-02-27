@@ -15,11 +15,11 @@
  */
 package examples.ssh;
 
-import org.netling.scp.SCPFileTransfer;
-import org.netling.ssh.SSHClient;
-
 import java.io.File;
 import java.io.IOException;
+
+import org.netling.scp.SCPFileTransfer;
+import org.netling.ssh.SSHClient;
 
 /** This example demonstrates uploading of a file over SCP to the SSH server. */
 public class SCPUpload {

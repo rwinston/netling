@@ -35,13 +35,13 @@
  */
 package org.netling.ssh.transport;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.netling.ssh.Config;
 import org.netling.ssh.common.Factory;
 import org.netling.ssh.common.Message;
 import org.netling.ssh.common.SSHPacket;
-
-import java.util.Arrays;
-import java.util.List;
 
 class Proposal {
 

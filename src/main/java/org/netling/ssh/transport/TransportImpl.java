@@ -35,6 +35,12 @@
  */
 package org.netling.ssh.transport;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.netling.concurrent.Event;
 import org.netling.concurrent.FutureUtils;
 import org.netling.io.Util;
@@ -49,12 +55,6 @@ import org.netling.ssh.common.SSHPacket;
 import org.netling.ssh.transport.verification.HostKeyVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 /** A thread-safe {@link Transport} implementation. */
 public final class TransportImpl

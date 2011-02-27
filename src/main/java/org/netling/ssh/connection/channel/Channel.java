@@ -15,16 +15,15 @@
  */
 package org.netling.ssh.connection.channel;
 
+import java.io.Closeable;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.concurrent.TimeUnit;
+
 import org.netling.ssh.common.ErrorNotifiable;
 import org.netling.ssh.common.SSHPacketHandler;
 import org.netling.ssh.connection.ConnectionException;
 import org.netling.ssh.transport.TransportException;
-
-import java.io.Closeable;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import java.util.concurrent.TimeUnit;
 
 /** A channel is the basic medium for application-layer data on top of an SSH transport. */
 public interface Channel

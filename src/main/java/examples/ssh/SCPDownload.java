@@ -15,10 +15,10 @@
  */
 package examples.ssh;
 
+import java.io.IOException;
+
 import org.netling.scp.SCPFileTransfer;
 import org.netling.ssh.SSHClient;
-
-import java.io.IOException;
 
 /** This example demonstrates downloading of a file over SCP from the SSH server. */
 public class SCPDownload {

@@ -36,6 +36,10 @@
 
 package org.netling.ssh.connection.channel;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InterruptedIOException;
+
 import org.netling.ssh.common.Buffer;
 import org.netling.ssh.common.ErrorNotifiable;
 import org.netling.ssh.common.Message;
@@ -46,10 +50,6 @@ import org.netling.ssh.transport.Transport;
 import org.netling.ssh.transport.TransportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InterruptedIOException;
 
 /**
  * {@link InputStream} for channels. Can {@link #receive(byte[], int, int) receive} data into its buffer for serving to

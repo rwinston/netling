@@ -35,19 +35,21 @@
  */
 package org.netling.ssh.connection.channel.direct;
 
-import org.netling.io.StreamCopier;
-import org.netling.ssh.common.Buffer;
-import org.netling.ssh.common.SSHPacket;
-import org.netling.ssh.connection.Connection;
-import org.netling.ssh.connection.ConnectionException;
-import org.netling.ssh.connection.channel.ChannelInputStream;
-import org.netling.ssh.transport.TransportException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import org.netling.io.StreamCopier;
+import org.netling.ssh.common.Buffer;
+import org.netling.ssh.common.SSHException;
+import org.netling.ssh.common.SSHPacket;
+import org.netling.ssh.common.SSHRuntimeException;
+import org.netling.ssh.connection.Connection;
+import org.netling.ssh.connection.ConnectionException;
+import org.netling.ssh.connection.channel.ChannelInputStream;
+import org.netling.ssh.transport.TransportException;
 
 /** {@link Session} implementation. */
 public class

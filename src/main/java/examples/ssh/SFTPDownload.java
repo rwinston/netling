@@ -15,10 +15,10 @@
  */
 package examples.ssh;
 
-import org.netling.ssh.SSHClient;
-import org.netling.sftp.SFTPClient;
-
 import java.io.IOException;
+
+import org.netling.sftp.SFTPClient;
+import org.netling.ssh.SSHClient;
 
 /** This example demonstrates downloading of a file over SFTP from the SSH server. */
 public class SFTPDownload {

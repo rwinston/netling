@@ -15,11 +15,11 @@
  */
 package org.netling.sftp;
 
-import org.netling.sftp.Response.StatusCode;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.netling.sftp.Response.StatusCode;
 
 public class RemoteFile
         extends RemoteResource {

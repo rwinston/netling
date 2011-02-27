@@ -36,6 +36,11 @@
 
 package org.netling.ssh;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.netling.ssh.common.Factory;
 import org.netling.ssh.common.SecurityUtils;
 import org.netling.ssh.signature.SignatureDSA;
@@ -63,11 +68,6 @@ import org.netling.ssh.userauth.keyprovider.OpenSSHKeyFile;
 import org.netling.ssh.userauth.keyprovider.PKCS8KeyFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * A {@link Config} that is initialized as follows. Items marked with an asterisk are added to the config only if

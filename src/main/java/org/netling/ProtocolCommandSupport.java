@@ -36,7 +36,6 @@
 package org.netling;
 
 import java.io.Serializable;
-import java.util.EventListener;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /***

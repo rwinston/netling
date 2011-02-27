@@ -15,10 +15,10 @@
  */
 package examples.ssh;
 
-import org.netling.ssh.SSHClient;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
+
+import org.netling.ssh.SSHClient;
 
 /**
  * This example demonstrates local port forwarding, i.e. when we listen on a particular address and port; and forward

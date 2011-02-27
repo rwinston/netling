@@ -35,15 +35,15 @@
  */
 package org.netling.ssh.transport;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import org.netling.ssh.Config;
 import org.netling.ssh.Service;
 import org.netling.ssh.common.DisconnectReason;
 import org.netling.ssh.common.SSHPacket;
 import org.netling.ssh.common.SSHPacketHandler;
 import org.netling.ssh.transport.verification.HostKeyVerifier;
-
-import java.io.InputStream;
-import java.io.OutputStream;
 
 /** Transport layer of the SSH protocol. */
 public interface Transport

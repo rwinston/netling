@@ -15,11 +15,11 @@
  */
 package examples.ssh;
 
+import java.io.IOException;
+
 import org.netling.ssh.SSHClient;
 import org.netling.ssh.connection.channel.direct.Session;
 import org.netling.ssh.connection.channel.direct.Session.Command;
-
-import java.io.IOException;
 
 /** This examples demonstrates how a remote command can be executed. */
 public class CommandExec {

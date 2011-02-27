@@ -15,11 +15,11 @@
  */
 package org.netling.ssh.userauth.keyprovider;
 
-import org.netling.ssh.common.KeyType;
-
 import java.io.IOException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+
+import org.netling.ssh.common.KeyType;
 
 /** A KeyProvider is a container for a public-private keypair. */
 public interface KeyProvider {

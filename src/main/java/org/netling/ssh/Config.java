@@ -15,6 +15,8 @@
  */
 package org.netling.ssh;
 
+import java.util.List;
+
 import org.netling.ssh.common.Factory;
 import org.netling.ssh.signature.Signature;
 import org.netling.ssh.transport.cipher.Cipher;
@@ -23,8 +25,6 @@ import org.netling.ssh.transport.kex.KeyExchange;
 import org.netling.ssh.transport.mac.MAC;
 import org.netling.ssh.transport.random.Random;
 import org.netling.ssh.userauth.keyprovider.FileKeyProvider;
-
-import java.util.List;
 
 /**
  * Holds configuration information and factories. Acts a container for factories of {@link KeyExchange}, {@link Cipher},

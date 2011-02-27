@@ -472,7 +472,7 @@ public class FTP extends SocketClient
 		}
 
 		try{
-			final String message = commandBuffer.toString();
+			message = commandBuffer.toString();
 			controlOutput.write(message);
 			controlOutput.flush();
 		}

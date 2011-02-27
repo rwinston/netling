@@ -15,11 +15,11 @@
  */
 package org.netling.sftp;
 
-import org.netling.sftp.Response.StatusCode;
-
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.netling.sftp.Response.StatusCode;
 
 public class RemoteDirectory
         extends RemoteResource {

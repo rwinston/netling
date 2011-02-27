@@ -35,6 +35,8 @@
  */
 package org.netling.ssh.connection.channel.direct;
 
+import java.util.concurrent.TimeUnit;
+
 import org.netling.ssh.common.Message;
 import org.netling.ssh.common.SSHPacket;
 import org.netling.ssh.connection.Connection;
@@ -43,8 +45,6 @@ import org.netling.ssh.connection.channel.AbstractChannel;
 import org.netling.ssh.connection.channel.Channel;
 import org.netling.ssh.connection.channel.OpenFailException;
 import org.netling.ssh.transport.TransportException;
-
-import java.util.concurrent.TimeUnit;
 
 /** Base class for direct channels whose open is initated by the client. */
 public abstract class AbstractDirectChannel

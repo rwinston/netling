@@ -15,10 +15,10 @@
  */
 package org.netling.sftp;
 
-import org.netling.xfer.FilePermission;
-
 import java.util.Collections;
 import java.util.Set;
+
+import org.netling.xfer.FilePermission;
 
 public class FileMode {
 

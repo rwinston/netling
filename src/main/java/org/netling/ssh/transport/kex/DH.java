@@ -35,18 +35,19 @@
  */
 package org.netling.ssh.transport.kex;
 
-import org.netling.ssh.common.SSHRuntimeException;
-import org.netling.ssh.common.SecurityUtils;
-
-import javax.crypto.KeyAgreement;
-import javax.crypto.spec.DHParameterSpec;
-import javax.crypto.spec.DHPublicKeySpec;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PublicKey;
+
+import javax.crypto.KeyAgreement;
+import javax.crypto.spec.DHParameterSpec;
+import javax.crypto.spec.DHPublicKeySpec;
+
+import org.netling.ssh.common.SSHRuntimeException;
+import org.netling.ssh.common.SecurityUtils;
 
 /** Diffie-Hellman key generator. */
 public class DH {

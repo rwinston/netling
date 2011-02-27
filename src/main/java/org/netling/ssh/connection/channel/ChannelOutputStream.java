@@ -35,15 +35,15 @@
  */
 package org.netling.ssh.connection.channel;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import org.netling.ssh.common.ErrorNotifiable;
 import org.netling.ssh.common.Message;
 import org.netling.ssh.common.SSHException;
 import org.netling.ssh.common.SSHPacket;
 import org.netling.ssh.connection.ConnectionException;
 import org.netling.ssh.transport.Transport;
-
-import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * {@link OutputStream} for channels. Buffers data upto the remote window's maximum packet size. Data can also be

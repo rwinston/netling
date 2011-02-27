@@ -35,11 +35,11 @@
  */
 package org.netling.ssh.transport.digest;
 
-import org.netling.ssh.common.SSHRuntimeException;
-import org.netling.ssh.common.SecurityUtils;
-
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
+
+import org.netling.ssh.common.SSHRuntimeException;
+import org.netling.ssh.common.SecurityUtils;
 
 /** Base class for Digest algorithms based on the JCE provider. */
 public class BaseDigest

@@ -15,11 +15,11 @@
  */
 package org.netling.ssh.userauth;
 
+import java.util.Deque;
+
 import org.netling.ssh.Service;
 import org.netling.ssh.transport.TransportException;
 import org.netling.ssh.userauth.method.AuthMethod;
-
-import java.util.Deque;
 
 /** User authentication API. See RFC 4252. */
 public interface UserAuth {

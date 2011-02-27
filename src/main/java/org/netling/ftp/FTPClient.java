@@ -54,6 +54,10 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.netling.ftp.FTP.FileFormat;
+import org.netling.ftp.FTP.FileStructure;
+import org.netling.ftp.FTP.FileTransferMode;
+import org.netling.ftp.FTP.FileType;
 import org.netling.ftp.parser.DefaultFTPFileEntryParserFactory;
 import org.netling.ftp.parser.FTPFileEntryParserFactory;
 import org.netling.ftp.parser.ParserInitializationException;

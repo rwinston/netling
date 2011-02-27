@@ -36,8 +36,6 @@
 package org.netling;
 
 import java.io.PrintWriter;
-import org.netling.ProtocolCommandEvent;
-import org.netling.ProtocolCommandListener;
 
 /***
  * This is a support class for some of the example programs.  It is

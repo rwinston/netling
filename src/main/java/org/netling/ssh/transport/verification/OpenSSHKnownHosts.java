@@ -15,16 +15,6 @@
  */
 package org.netling.ssh.transport.verification;
 
-import org.netling.io.Util;
-import org.netling.util.Base64;
-import org.netling.ssh.common.Buffer;
-import org.netling.ssh.common.KeyType;
-import org.netling.ssh.common.SSHException;
-import org.netling.ssh.transport.mac.HMACSHA1;
-import org.netling.ssh.transport.mac.MAC;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,6 +25,16 @@ import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.netling.io.Util;
+import org.netling.ssh.common.Buffer;
+import org.netling.ssh.common.KeyType;
+import org.netling.ssh.common.SSHException;
+import org.netling.ssh.transport.mac.HMACSHA1;
+import org.netling.ssh.transport.mac.MAC;
+import org.netling.util.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A {@link HostKeyVerifier} implementation for a {@code known_hosts} file i.e. in the format used by OpenSSH.

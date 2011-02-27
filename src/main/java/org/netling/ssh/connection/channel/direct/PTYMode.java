@@ -15,10 +15,10 @@
  */
 package org.netling.ssh.connection.channel.direct;
 
-import org.netling.ssh.common.Buffer;
-
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.netling.ssh.common.Buffer;
 
 /** Various modes for a psuedo-terminal. They are meant to have integer parameters. */
 public enum PTYMode {

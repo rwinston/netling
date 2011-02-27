@@ -15,13 +15,13 @@
  */
 package org.netling.ssh.transport.verification;
 
-import org.netling.ssh.common.KeyType;
-import org.netling.ssh.common.SecurityUtils;
-
 import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.security.PublicKey;
+
+import org.netling.ssh.common.KeyType;
+import org.netling.ssh.common.SecurityUtils;
 
 public class ConsoleKnownHostsVerifier
         extends OpenSSHKnownHosts {

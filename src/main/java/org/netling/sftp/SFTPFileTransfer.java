@@ -15,19 +15,19 @@
  */
 package org.netling.sftp;
 
-import org.netling.io.StreamCopier;
-import org.netling.sftp.Response.StatusCode;
-import org.netling.xfer.AbstractFileTransfer;
-import org.netling.xfer.FileTransfer;
-import org.netling.xfer.FileTransferUtil;
-import org.netling.xfer.TransferListener;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.EnumSet;
+
+import org.netling.io.StreamCopier;
+import org.netling.sftp.Response.StatusCode;
+import org.netling.xfer.AbstractFileTransfer;
+import org.netling.xfer.FileTransfer;
+import org.netling.xfer.FileTransferUtil;
+import org.netling.xfer.TransferListener;
 
 public class SFTPFileTransfer
         extends AbstractFileTransfer

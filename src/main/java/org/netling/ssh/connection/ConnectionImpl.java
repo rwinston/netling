@@ -15,6 +15,13 @@
  */
 package org.netling.ssh.connection;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.netling.concurrent.Future;
 import org.netling.concurrent.FutureUtils;
 import org.netling.ssh.AbstractService;
@@ -29,13 +36,6 @@ import org.netling.ssh.connection.channel.OpenFailException.Reason;
 import org.netling.ssh.connection.channel.forwarded.ForwardedChannelOpener;
 import org.netling.ssh.transport.Transport;
 import org.netling.ssh.transport.TransportException;
-
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /** {@link Connection} implementation. */
 public class ConnectionImpl

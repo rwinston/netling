@@ -37,13 +37,11 @@ package org.netling.ftp.parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.util.StringTokenizer;
 
 import org.netling.ftp.FTPClientConfig;
 import org.netling.ftp.FTPFile;
-import org.netling.ftp.FTPListParseEngine;
 
 /**
  * Implementation FTPFileEntryParser and FTPFileListParser for VMS Systems.

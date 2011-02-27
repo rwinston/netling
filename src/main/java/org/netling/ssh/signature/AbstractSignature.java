@@ -35,13 +35,13 @@
  */
 package org.netling.ssh.signature;
 
-import org.netling.ssh.common.SSHRuntimeException;
-import org.netling.ssh.common.SecurityUtils;
-
 import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SignatureException;
+
+import org.netling.ssh.common.SSHRuntimeException;
+import org.netling.ssh.common.SecurityUtils;
 
 /** An abstract class for {@link Signature} that implements common functionality. */
 public abstract class AbstractSignature

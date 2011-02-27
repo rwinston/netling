@@ -35,6 +35,8 @@
  */
 package org.netling.ssh.transport;
 
+import java.util.concurrent.locks.Lock;
+
 import org.netling.ssh.common.SSHPacket;
 import org.netling.ssh.transport.cipher.Cipher;
 import org.netling.ssh.transport.compression.Compression;
@@ -42,8 +44,6 @@ import org.netling.ssh.transport.mac.MAC;
 import org.netling.ssh.transport.random.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.locks.Lock;
 
 /** Encodes packets into the SSH binary protocol per the current algorithms. */
 final class Encoder

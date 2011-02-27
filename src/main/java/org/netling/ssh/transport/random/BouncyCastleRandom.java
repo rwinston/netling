@@ -35,10 +35,10 @@
  */
 package org.netling.ssh.transport.random;
 
+import java.security.SecureRandom;
+
 import org.bouncycastle.crypto.prng.RandomGenerator;
 import org.bouncycastle.crypto.prng.VMPCRandomGenerator;
-
-import java.security.SecureRandom;
 
 /**
  * BouncyCastle <code>Random</code>. This pseudo random number generator uses the a very fast PRNG from BouncyCastle.

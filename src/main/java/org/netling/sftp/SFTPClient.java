@@ -15,12 +15,6 @@
  */
 package org.netling.sftp;
 
-import org.netling.ssh.common.SSHException;
-import org.netling.ssh.connection.channel.direct.SessionFactory;
-import org.netling.xfer.FilePermission;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.Deque;
@@ -28,6 +22,11 @@ import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import org.netling.ssh.connection.channel.direct.SessionFactory;
+import org.netling.xfer.FilePermission;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SFTPClient
         implements Closeable {

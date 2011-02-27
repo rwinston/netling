@@ -15,6 +15,10 @@
  */
 package org.netling.ssh.userauth.method;
 
+import java.io.IOException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+
 import org.netling.ssh.common.Buffer;
 import org.netling.ssh.common.Factory;
 import org.netling.ssh.common.KeyType;
@@ -22,10 +26,6 @@ import org.netling.ssh.common.SSHPacket;
 import org.netling.ssh.signature.Signature;
 import org.netling.ssh.userauth.UserAuthException;
 import org.netling.ssh.userauth.keyprovider.KeyProvider;
-
-import java.io.IOException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 
 public abstract class KeyedAuthMethod
         extends AbstractAuthMethod {

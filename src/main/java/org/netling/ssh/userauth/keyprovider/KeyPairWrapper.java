@@ -15,11 +15,11 @@
  */
 package org.netling.ssh.userauth.keyprovider;
 
-import org.netling.ssh.common.KeyType;
-
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+
+import org.netling.ssh.common.KeyType;
 
 /** A {@link KeyProvider} wrapper around {@link java.security.KeyPair} */
 public class KeyPairWrapper

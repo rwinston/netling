@@ -16,6 +16,8 @@
 
 package org.netling.ssh.connection.channel.forwarded;
 
+import java.io.IOException;
+
 import org.netling.io.Util;
 import org.netling.ssh.connection.Connection;
 import org.netling.ssh.connection.channel.Channel;
@@ -23,8 +25,6 @@ import org.netling.ssh.connection.channel.OpenFailException;
 import org.netling.ssh.transport.TransportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /** Base class for {@link ForwardedChannelOpener}'s. */
 public abstract class AbstractForwardedChannelOpener

@@ -35,9 +35,26 @@
  */
 package org.netling.ssh.transport;
 
+import java.security.GeneralSecurityException;
+import java.security.PublicKey;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.netling.concurrent.Event;
 import org.netling.concurrent.FutureUtils;
-import org.netling.ssh.common.*;
+import org.netling.ssh.common.Buffer;
+import org.netling.ssh.common.DisconnectReason;
+import org.netling.ssh.common.ErrorNotifiable;
+import org.netling.ssh.common.Factory;
+import org.netling.ssh.common.KeyType;
+import org.netling.ssh.common.Message;
+import org.netling.ssh.common.SSHException;
+import org.netling.ssh.common.SSHPacket;
+import org.netling.ssh.common.SSHPacketHandler;
+import org.netling.ssh.common.SecurityUtils;
 import org.netling.ssh.transport.cipher.Cipher;
 import org.netling.ssh.transport.compression.Compression;
 import org.netling.ssh.transport.digest.Digest;
@@ -46,14 +63,6 @@ import org.netling.ssh.transport.mac.MAC;
 import org.netling.ssh.transport.verification.HostKeyVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.security.GeneralSecurityException;
-import java.security.PublicKey;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /** Algorithm negotiation and key exchange. */
 final class KeyExchanger

@@ -35,9 +35,9 @@
  */
 package org.netling.ssh.common;
 
-import org.netling.concurrent.ExceptionChainer;
-
 import java.io.IOException;
+
+import org.netling.concurrent.ExceptionChainer;
 
 /**
  * Most exceptions in the {@code org.netling.sshj} package are instances of this class. An {@link SSHException} is

@@ -15,15 +15,15 @@
  */
 package org.netling.ssh.userauth.method;
 
-import org.netling.ssh.userauth.password.PasswordFinder;
-import org.netling.ssh.userauth.password.Resource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import org.netling.ssh.userauth.password.PasswordFinder;
+import org.netling.ssh.userauth.password.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PasswordResponseProvider
         implements ChallengeResponseProvider {

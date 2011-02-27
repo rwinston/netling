@@ -16,6 +16,11 @@
     -->
 
     <project name="netling">
+	<bannerLeft>
+		<name></name>
+		<src>images/netling.png</src>
+		<href>http://www.netling.org</href>
+	</bannerLeft>
         <body>
             <menu name="Documentation">
                 <item name="Getting Started"	href="gettingstarted.html"/>

@@ -137,10 +137,13 @@ padding-top: 50px;
 .source {
   padding: 12px;
   margin: 1em 7px 1em 7px;
+  background-color: #efefff;
+  border: none;
 }
 .source pre {
   margin: 0px;
   padding: 0px;
+  border: none;
 }
 
 pre {
@@ -183,6 +186,8 @@ a:active, a:hover {
 #legend li.externalLink {
   background: url(../images/external.png) left top no-repeat;
   padding-left: 18px;
+  border: none;
+  background-color: #ffffff;
 }
 a.externalLink, a.externalLink:link, a.externalLink:visited, a.externalLink:active, a.externalLink:hover {
   background: url(../images/external.png) right center no-repeat;

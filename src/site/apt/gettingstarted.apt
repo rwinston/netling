@@ -8,7 +8,7 @@ Getting Started
     <dependency>
         <groupId>org.netling</groupId>
         <artifactId>netling</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${project.version}</version>
     </dependency>
 --------------------------------------
  

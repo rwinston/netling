@@ -50,10 +50,10 @@ public class PuTTYKeyFileTest {
     @Test
     public void testKeys()
             throws IOException, GeneralSecurityException {
-
     	PublicKey expected = SecurityUtils.getKeyFactory("RSA").generatePublic(
     			new RSAPublicKeySpec(new BigInteger(modulus), new BigInteger(exponent)));
     	assertEquals(expected, rsa.getPublic());
+    	rsa.getPrivate();
     }
 
     @Test

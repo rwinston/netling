@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
@@ -120,6 +121,8 @@ import org.slf4j.LoggerFactory;
  */
 public class PuTTYKeyFile
         implements FileKeyProvider {
+	
+	private static final Logger logger = LoggerFactory.getLogger(PuTTYKeyFile.class);
 
     public static class Factory
             implements org.netling.ssh.common.Factory.Named<FileKeyProvider> {
@@ -189,17 +192,44 @@ public class PuTTYKeyFile
             final String encryption = br.readLine();
             br.readLine(); // comment
             final String pubKeyHeader = br.readLine();
-            final int lines = Integer.valueOf(pubKeyHeader.split(":")[1].trim());
+            final int pubLines = getHeaderValue(pubKeyHeader);
             StringBuilder keyBuf = new StringBuilder();
-            for (int i = 0; i < lines; ++i) {
+            for (int i = 0; i < pubLines; ++i) {
                 keyBuf.append(br.readLine());
             }
             String keyType = header.split(" ")[1].trim();
             type = KeyType.fromString(keyType);
             pubKey = new Buffer.PlainBuffer(Base64.decode(keyBuf.toString())).readPublicKey();
+            
+            // Read the private key too
+            final String privKeyHeader = br.readLine();
+            final int privLines = getHeaderValue(privKeyHeader);
+            StringBuilder privKeyBuf = new StringBuilder();
+            for (int i = 0; i < privLines; ++i) {
+            	privKeyBuf.append(br.readLine());
+            }
+            System.out.println(header);
+            System.out.println("Encryption=" + encryption);
+            System.out.println(privKeyBuf.toString());
+            Buffer privateKey = new Buffer.PlainBuffer(Base64.decode(privKeyBuf.toString()));
+            BigInteger privExponent = privateKey.readMPInt();
+            BigInteger p = privateKey.readMPInt();
+            BigInteger q = privateKey.readMPInt();
+            BigInteger iqmp = privateKey.readMPInt();
+            System.out.println("p=" + p + ",q=" + q);
+            
+            final String mac = br.readLine().split(":")[1].trim();
+            System.out.println(mac);
+            
+            
+            
         } finally {
             br.close();
         }
+    }
+    
+    int getHeaderValue(final String header) {
+    	return Integer.valueOf(header.split(":")[1].trim());
     }
 
     private PrivateKey readPrivateKey() {
